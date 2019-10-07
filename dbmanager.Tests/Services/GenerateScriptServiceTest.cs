@@ -16,7 +16,8 @@ namespace dbmanager.Tests.Services
         public async Task CREATE_TABLE_SCRIPT_ISVALID()
         {
             // Arrange
-            var table = new Table { Name = "Test", Schema = "dbo" };
+            var tableName = "Test";
+            var schema = "dbo";
             var columns = new List<Column>
             {
                 new Column { Name = "id", Type = "int", IsNullable = "NO"},
@@ -24,8 +25,7 @@ namespace dbmanager.Tests.Services
             };
 
             var repo = new Mock<IDbInfoRepository>();
-            repo.Setup(d => d.GetColumnsAsync(It.IsAny<Table>()))
-                .ReturnsAsync(columns);
+            repo.Setup(d => d.GetColumnsAsync(It.IsAny<Table>())).ReturnsAsync(columns);
 
             var generateScriptService = new GenerateScriptService(repo.Object);
 
@@ -35,7 +35,7 @@ namespace dbmanager.Tests.Services
                                         );";
 
             //Act
-            var script = await generateScriptService.GetCreateTableScriptAsync(table);
+            var script = await generateScriptService.GetCreateTableScriptAsync(string.Empty, schema, tableName);
 
             //Assert
             script.Should().NotBeNullOrWhiteSpace().Should().Equals(expectableScript);

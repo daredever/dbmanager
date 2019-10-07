@@ -13,4 +13,9 @@
   <ItemGroup>
     <Compile Remove="WeatherForecast.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\dbmanager.Common\dbmanager.Common.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
+  </ItemGroup>
 </Project>

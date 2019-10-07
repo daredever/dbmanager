@@ -20,7 +20,7 @@
     "dbmanager.API": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "dbmanager",
+      "launchUrl": "api",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },

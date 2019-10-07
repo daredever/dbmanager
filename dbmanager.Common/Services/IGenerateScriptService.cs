@@ -5,6 +5,7 @@ namespace dbmanager.Common.Services
 {
     public interface IGenerateScriptService
     {
-        Task<string> GetCreateTableScriptAsync(Table table);
+        Task<string> GetCreateTableScriptAsync(string catalog, string schema, string tableName);
+        void SetConnectionString(string connectionString);
     }
 }
