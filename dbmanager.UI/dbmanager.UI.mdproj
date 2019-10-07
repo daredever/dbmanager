@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Default</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ItemType>GenericProject</ItemType>
+    <ProjectGuid>{78DCC450-B1E1-47F6-9896-275CBD5722AA}</ProjectGuid>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Default|AnyCPU' ">
+    <OutputPath>.\</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="src\App.css" />
+    <None Include="src\index.js" />
+    <None Include="src\index.css" />
+    <None Include="src\App.test.js" />
+    <None Include="src\serviceWorker.js" />
+    <None Include="src\logo.svg" />
+    <None Include="src\App.js" />
+    <None Include="public\favicon.ico" />
+    <None Include="public\index.html" />
+    <None Include="public\logo512.png" />
+    <None Include="public\manifest.json" />
+    <None Include="public\robots.txt" />
+    <None Include="public\logo192.png" />
+    <None Include="package-lock.json" />
+    <None Include="package.json" />
+    <None Include=".gitignore" />
+  </ItemGroup>
+</Project>
