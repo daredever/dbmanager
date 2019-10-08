@@ -29,10 +29,5 @@ namespace dbmanager.Common.Services
         {
             return _repo.GetColumnsAsync(new Table { Catalog = catalog, Schema = schema, Name = table });
         }
-
-        public void SetConnectionString(string connectionString)
-        {
-            _repo.ConnectionString = connectionString;
-        }
     }
 }

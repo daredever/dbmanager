@@ -11,6 +11,7 @@ namespace dbmanager.API.Exctensions
         {
             services.AddTransient<IDbInfoService, DbInfoService>();
             services.AddTransient<IGenerateScriptService, GenerateScriptService>();
+            services.AddTransient<IHttpContextService, HttpContextService>();
         }
 
         public static void AddRepositories(this IServiceCollection services)

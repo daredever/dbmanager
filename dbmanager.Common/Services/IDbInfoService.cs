@@ -9,6 +9,5 @@ namespace dbmanager.Common.Services
         Task<IEnumerable<Catalog>> GetCatalogsAsync();
         Task<IEnumerable<Table>> GetTablesAsync(string catalog);
         Task<IEnumerable<Column>> GetColumnsAsync(string catalog, string schema, string table);
-        void SetConnectionString(string connectionString);
     }
 }

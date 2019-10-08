@@ -27,10 +27,5 @@ namespace dbmanager.Common.Services
 
             return $"CREATE TABLE {tableFullStr} ({columnsFullStr});";
         }
-
-        public void SetConnectionString(string connectionString)
-        {
-            _repo.ConnectionString = connectionString;
-        }
     }
 }

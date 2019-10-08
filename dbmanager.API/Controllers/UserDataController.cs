@@ -1,8 +1,7 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Microsoft.AspNetCore.Http;
-using dbmanager.Common.Consts;
+using dbmanager.Common.Services;
 
 namespace dbmanager.UI.Controllers
 {
@@ -11,10 +10,12 @@ namespace dbmanager.UI.Controllers
     public class UserDataController : ControllerBase
     {
         private readonly ILogger<UserDataController> _logger;
+        private readonly IHttpContextService _httpContextService;
 
-        public UserDataController(ILogger<UserDataController> logger)
+        public UserDataController(ILogger<UserDataController> logger, IHttpContextService httpContextService)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _httpContextService = httpContextService ?? throw new ArgumentNullException(nameof(httpContextService));
         }
 
         [HttpPost("connectionstring")]
@@ -25,9 +26,15 @@ namespace dbmanager.UI.Controllers
                 return Ok("Connection string not specified");
             }
 
-            HttpContext.Session.SetString(Consts.ConnectionStringKey, connectionString);
+            _httpContextService.DBConnectionString = connectionString;
 
             return Ok();
+        }
+
+        [HttpGet("connectionstring")]
+        public string GetConnectionString()
+        {
+            return _httpContextService.DBConnectionString;
         }
     }
 }

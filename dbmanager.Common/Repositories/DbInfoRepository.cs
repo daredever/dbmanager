@@ -4,26 +4,17 @@ using System.Threading.Tasks;
 using dbmanager.Common.Models;
 using System.Data.SqlClient;
 using System.Linq;
+using dbmanager.Common.Services;
 
 namespace dbmanager.Common.Repositories
 {
     public class DbInfoRepository : IDbInfoRepository
     {
-        private string _connectionString;
+        private readonly IHttpContextService _httpContextService;
 
-        public string ConnectionString
+        public DbInfoRepository(IHttpContextService httpContextService)
         {
-            get
-            {
-                return _connectionString;
-            }
-            set
-            {
-                if (!string.IsNullOrEmpty(value))
-                {
-                    _connectionString = value;
-                }
-            }
+            _httpContextService = httpContextService ?? throw new ArgumentNullException(nameof(httpContextService));
         }
 
         public async Task<IEnumerable<Catalog>> GetCatalogsAsync()
@@ -36,7 +27,7 @@ namespace dbmanager.Common.Repositories
             ";
 
             var catalogs = new List<Catalog>();
-            using (var connection = new SqlConnection(ConnectionString))
+            using (var connection = new SqlConnection(_httpContextService.DBConnectionString))
             {
                 await connection.OpenAsync();
 
@@ -72,7 +63,7 @@ namespace dbmanager.Common.Repositories
 
             var tables = new List<Table>();
 
-            using (var connection = new SqlConnection(ConnectionString))
+            using (var connection = new SqlConnection(_httpContextService.DBConnectionString))
             {
                 await connection.OpenAsync();
                 await connection.ChangeDatabaseAsync(catalog.Name);
@@ -126,7 +117,7 @@ namespace dbmanager.Common.Repositories
 
             var columns = new List<Column>();
 
-            using (var connection = new SqlConnection(ConnectionString))
+            using (var connection = new SqlConnection(_httpContextService.DBConnectionString))
             {
                 await connection.OpenAsync();
                 await connection.ChangeDatabaseAsync(table.Catalog);

@@ -5,8 +5,6 @@ using dbmanager.Common.Models;
 using dbmanager.Common.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Microsoft.AspNetCore.Http;
-using dbmanager.Common.Consts;
 
 namespace dbmanager.UI.Controllers
 {
@@ -26,28 +24,19 @@ namespace dbmanager.UI.Controllers
         [HttpGet("catalogs")]
         public Task<IEnumerable<Catalog>> GetCatalogsAsync()
         {
-            SetConnectionString();
             return _service.GetCatalogsAsync();
         }
 
         [HttpGet("tables/{catalog}")]
         public Task<IEnumerable<Table>> GetTablesAsync(string catalog)
         {
-            SetConnectionString();
             return _service.GetTablesAsync(catalog);
         }
 
         [HttpGet("columns/{catalog}/{schema}/{table}")]
         public Task<IEnumerable<Column>> GetColumnsAsync(string catalog, string schema, string table)
         {
-            SetConnectionString();
             return _service.GetColumnsAsync(catalog, schema, table);
-        }
-
-        private void SetConnectionString()
-        {
-            var connectionString = HttpContext.Session.GetString(Consts.ConnectionStringKey);
-            _service.SetConnectionString(connectionString);
         }
     }
 }
