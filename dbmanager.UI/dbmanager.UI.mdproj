@@ -25,11 +25,11 @@
     <None Include="package-lock.json" />
     <None Include="package.json" />
     <None Include=".gitignore" />
-    <None Include="src\components\NavMenu.js" />
     <None Include="src\components\NavMenu.css" />
     <None Include="src\components\Catalogs.js" />
     <None Include="src\components\Tables.js" />
     <None Include="src\components\Columns.js" />
+    <None Include="src\components\NavMenu.js" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="src\components\" />
