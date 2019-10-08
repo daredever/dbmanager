@@ -10,7 +10,7 @@ class Catalogs extends React.Component {
         return this.props.catalogs.map((catalog) => {
             return (
                 <tr key={catalog.name} onClick={() => this.props.loadTables(catalog)}>
-                    <td>{catalog.name}</td>
+                    <td className="text-left">{catalog.name}</td>
                 </tr>
             )
         })
@@ -21,7 +21,7 @@ class Catalogs extends React.Component {
             <table className='table table-striped table-hover' aria-labelledby="tabelLabel">
                 <thead>
                     <tr>
-                        <th>Catalogs</th>
+                        <th className="text-left">Catalogs</th>
                     </tr>
                 </thead>
                 <tbody>

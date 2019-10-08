@@ -20,8 +20,12 @@ namespace dbmanager.Common.Services
             var table = new Table { Catalog = catalog, Schema = schema, Name = tableName };
             var tableFullStr = table.ToString();
             var columns = await _repo.GetColumnsAsync(table);
-            var columnsFullStr = string.Join("," + Environment.NewLine, columns.Select(c => c.ToString()));
-            return $"CREATE TABLE {tableFullStr} ({Environment.NewLine + columnsFullStr + Environment.NewLine});";
+            var newLine = Environment.NewLine;
+            var columnsFullStr = string.Format("{0}{1}{0}",
+                newLine,
+                string.Join($",{newLine}", columns.Select(c => $"\t{c.ToString()}")));
+
+            return $"CREATE TABLE {tableFullStr} ({columnsFullStr});";
         }
 
         public void SetConnectionString(string connectionString)

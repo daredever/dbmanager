@@ -10,8 +10,11 @@ class Tables extends React.Component {
         return this.props.tables.map((table) => {
             return (
                 <tr key={table.name} >
-                    <td onClick={() => this.props.loadColumns(table)} >{table.schema}.{table.name}</td>
-                    <td><button onClick={() => this.props.createTable(table)}  className="btn btn-secondary btn-sm">Create</button></td>
+                    <td className="text-left" onClick={() => this.props.loadColumns(table)} >
+                        {table.schema}.{table.name}</td>
+                    <td>
+                        <button onClick={() => this.props.createTable(table)} className="btn btn-secondary btn-sm">
+                            Create</button></td>
                 </tr>
             )
         })
@@ -22,7 +25,7 @@ class Tables extends React.Component {
             <table className='table table-striped table-hover' aria-labelledby="tabelLabel">
                 <thead>
                     <tr>
-                        <th>Tables</th>
+                        <th className="text-left">Tables</th>
                     </tr>
                 </thead>
                 <tbody>

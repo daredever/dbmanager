@@ -29,9 +29,9 @@ namespace dbmanager.Common.Repositories
         public async Task<IEnumerable<Catalog>> GetCatalogsAsync()
         {
             var query =
-            @"
+            @$"
                 SELECT 
-                    name as [Name]
+                    name as [{nameof(Catalog.Name)}]
                 FROM sys.databases;
             ";
 
@@ -40,9 +40,8 @@ namespace dbmanager.Common.Repositories
             {
                 await connection.OpenAsync();
 
-                var command = new SqlCommand(query, connection);
-
-                var dataReader = await command.ExecuteReaderAsync();
+                using var command = new SqlCommand(query, connection);
+                using var dataReader = await command.ExecuteReaderAsync();
                 if (dataReader.HasRows)
                 {
                     while (await dataReader.ReadAsync())
@@ -51,7 +50,7 @@ namespace dbmanager.Common.Repositories
                     }
                 }
 
-                dataReader.Close();
+                await dataReader.CloseAsync();
             }
 
             return catalogs.OrderBy(c => c.Name);
@@ -59,14 +58,14 @@ namespace dbmanager.Common.Repositories
 
         public async Task<IEnumerable<Table>> GetTablesAsync(Catalog catalog)
         {
-            var catalogNameParameter = "@catalogName";
+            var catalogNameParameter = $"@{nameof(catalog.Name)}";
             var query =
             @$"
                 SELECT
-                    TABLE_CATALOG AS [Catalog],
-                    TABLE_SCHEMA AS [Schema],
-                    TABLE_NAME AS [Name],
-                    TABLE_TYPE AS [Type]
+                    TABLE_CATALOG AS [{nameof(Table.Catalog)}],
+                    TABLE_SCHEMA AS [{nameof(Table.Schema)}],
+                    TABLE_NAME AS [{nameof(Table.Name)}],
+                    TABLE_TYPE AS [{nameof(Table.Type)}]
                 FROM INFORMATION_SCHEMA.TABLES
                 WHERE TABLE_CATALOG = {catalogNameParameter};
             ";
@@ -78,11 +77,10 @@ namespace dbmanager.Common.Repositories
                 await connection.OpenAsync();
                 await connection.ChangeDatabaseAsync(catalog.Name);
 
-                var command = new SqlCommand(query, connection);
-
+                using var command = new SqlCommand(query, connection);
                 command.Parameters.Add(new SqlParameter(catalogNameParameter, catalog.Name));
 
-                var dataReader = await command.ExecuteReaderAsync();
+                using var dataReader = await command.ExecuteReaderAsync();
                 if (dataReader.HasRows)
                 {
                     while (await dataReader.ReadAsync())
@@ -99,7 +97,7 @@ namespace dbmanager.Common.Repositories
                     }
                 }
 
-                dataReader.Close();
+                await dataReader.CloseAsync();
             }
 
             return tables.OrderBy(c => c.Schema).ThenBy(c => c.Name);
@@ -107,9 +105,9 @@ namespace dbmanager.Common.Repositories
 
         public async Task<IEnumerable<Column>> GetColumnsAsync(Table table)
         {
-            var catalogNameParameter = "@catalogName";
-            var schemaNameParameter = "@schemaName";
-            var tableNameParameter = "@tableName";
+            var catalogNameParameter = $"@{nameof(table.Catalog)}";
+            var schemaNameParameter = $"@{nameof(table.Schema)}";
+            var tableNameParameter = $"@{nameof(table.Name)}";
             var query =
             $@"
                 SELECT
@@ -133,13 +131,12 @@ namespace dbmanager.Common.Repositories
                 await connection.OpenAsync();
                 await connection.ChangeDatabaseAsync(table.Catalog);
 
-                var command = new SqlCommand(query, connection);
-
+                using var command = new SqlCommand(query, connection);
                 command.Parameters.Add(new SqlParameter(catalogNameParameter, table.Catalog));
                 command.Parameters.Add(new SqlParameter(schemaNameParameter, table.Schema));
                 command.Parameters.Add(new SqlParameter(tableNameParameter, table.Name));
 
-                var dataReader = await command.ExecuteReaderAsync();
+                using var dataReader = await command.ExecuteReaderAsync();
                 if (dataReader.HasRows)
                 {
                     while (await dataReader.ReadAsync())
@@ -158,7 +155,7 @@ namespace dbmanager.Common.Repositories
                     }
                 }
 
-                dataReader.Close();
+                await dataReader.CloseAsync();
             }
 
             return columns.OrderBy(c => c.Name);

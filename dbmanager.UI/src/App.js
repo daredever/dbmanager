@@ -55,7 +55,7 @@ class App extends React.Component {
                     throw Error(data.message);
                 }
 
-                this.setState({ ... this.state, tables: data, columns: [] });
+                this.setState({ ...this.state, tables: data, columns: [] });
             })
             .catch(error => alert(error));
     }
@@ -68,7 +68,7 @@ class App extends React.Component {
                     throw Error(data.message);
                 }
 
-                this.setState({ ... this.state, columns: data });
+                this.setState({ ...this.state, columns: data });
             })
             .catch(error => alert(error));
     }

@@ -17,8 +17,7 @@ namespace dbmanager.UI.Controllers
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        [HttpPost]
-        [Route("connectionstring")]
+        [HttpPost("connectionstring")]
         public IActionResult SetConnectionString([FromForm] string connectionString)
         {
             if (string.IsNullOrEmpty(connectionString))

@@ -10,7 +10,7 @@ class Columns extends React.Component {
         return this.props.columns.map((column) => {
             return (
                 <tr key={column.name}>
-                    <td>{column.name} <small>{column.type}</small></td>
+                    <td className="text-left">{column.name} <small>({column.type})</small></td>
                 </tr>
             )
         })
@@ -21,7 +21,7 @@ class Columns extends React.Component {
             <table className='table table-striped table-hover' aria-labelledby="tabelLabel">
                 <thead>
                     <tr>
-                        <th>Columns</th>
+                        <th className="text-left">Columns</th>
                     </tr>
                 </thead>
                 <tbody>

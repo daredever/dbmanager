@@ -29,16 +29,15 @@ namespace dbmanager.Tests.Services
 
             var generateScriptService = new GenerateScriptService(repo.Object);
 
-            var expectableScript = @$"CREATE TABLE dbo.Test (
-                                        id int NOT NULL,
-                                        name nvarchar(100)
-                                        );";
+            var expectableScript = $"CREATE TABLE dbo.Test ({Environment.NewLine}\tid int NOT NULL,"
+                                        + $"{Environment.NewLine}\tname nvarchar(100)"
+                                        + $"{Environment.NewLine});";
 
             //Act
             var script = await generateScriptService.GetCreateTableScriptAsync(string.Empty, schema, tableName);
 
             //Assert
-            script.Should().NotBeNullOrWhiteSpace().Should().Equals(expectableScript);
+            script.Should().BeEquivalentTo(expectableScript);
         }
     }
 }

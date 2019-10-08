@@ -23,24 +23,21 @@ namespace dbmanager.UI.Controllers
             _service = service ?? throw new ArgumentNullException(nameof(service));
         }
 
-        [HttpGet]
-        [Route("catalogs")]
+        [HttpGet("catalogs")]
         public Task<IEnumerable<Catalog>> GetCatalogsAsync()
         {
             SetConnectionString();
             return _service.GetCatalogsAsync();
         }
 
-        [HttpGet]
-        [Route("tables/{catalog}")]
+        [HttpGet("tables/{catalog}")]
         public Task<IEnumerable<Table>> GetTablesAsync(string catalog)
         {
             SetConnectionString();
             return _service.GetTablesAsync(catalog);
         }
 
-        [HttpGet]
-        [Route("columns/{catalog}/{schema}/{table}")]
+        [HttpGet("columns/{catalog}/{schema}/{table}")]
         public Task<IEnumerable<Column>> GetColumnsAsync(string catalog, string schema, string table)
         {
             SetConnectionString();

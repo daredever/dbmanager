@@ -21,8 +21,7 @@ namespace dbmanager.UI.Controllers
             _service = service ?? throw new ArgumentNullException(nameof(service));
         }
 
-        [HttpGet]
-        [Route("createtable/{catalog}/{schema}/{table}")]
+        [HttpGet("createtable/{catalog}/{schema}/{table}")]
         public Task<string> GetCreateTableString(string catalog, string schema, string table)
         {
             SetConnectionString();
