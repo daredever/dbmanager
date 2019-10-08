@@ -6,8 +6,6 @@ using dbmanager.Common.Repositories;
 using dbmanager.Common.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -23,6 +21,8 @@ namespace dbmanager.API
         }
 
         public IConfiguration Configuration { get; }
+
+        private readonly string AllowOrigins = "allow_origins";
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -40,6 +40,15 @@ namespace dbmanager.API
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "dbmanager API", Version = "v1" });
+            });
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(AllowOrigins,
+                    buider =>
+                    {
+                        buider.WithOrigins("http://localhost:3000").AllowAnyHeader().AllowAnyMethod().AllowCredentials();
+                    });
             });
         }
 
@@ -66,6 +75,8 @@ namespace dbmanager.API
 
 
             app.UseRouting();
+
+            app.UseCors(AllowOrigins);
 
             app.UseAuthorization();
 

@@ -4,28 +4,77 @@ import NavMenu from './components/NavMenu';
 import Catalogs from './components/Catalogs';
 import Tables from './components/Tables';
 import Columns from './components/Columns';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
-function App() {
-    return (
-        <div className="App">
-            <NavMenu />
-            <Container>
-                <div className="row">
-                    <div className="col">
-                        <Catalogs />
+const url = 'https://localhost:5001/api';
+
+class App extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = { catalogs: [], tables: [], columns: [] };
+        this.setConnectionString = this.setConnectionString.bind(this);
+        this.loadTables = this.loadTables.bind(this);
+        this.loadColumns = this.loadColumns.bind(this);
+    }
+
+    setConnectionString(connectionString) {
+        fetch(`${url}/userdata/connectionstring/`, {
+                method: 'POST',
+                mode: 'cors',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            credentials: 'include',
+                body: encodeURI(`connectionString=${connectionString}`),
+            })
+            .then(() => {
+                fetch(`${url}/databaseinfo/catalogs`, { credentials: 'include', mode: 'cors' })
+                    .then(response => response.json())
+                    .then(data => {
+                        this.setState({ catalogs: data, tables: [], columns: [] });
+                    })
+                    .catch(error => alert(error));
+            })
+            .catch(error => alert(error));
+    }
+
+    loadTables(catalog) {
+        fetch(`${url}/databaseinfo/tables/${catalog.name}`, { credentials: 'include', mode: 'cors' })
+            .then(response => response.json())
+            .then(data => {
+                this.setState({ ... this.state, tables: data, columns: [] });
+            })
+            .catch(error => alert(error));
+    }
+
+    loadColumns(table) {
+        fetch(`${url}/databaseinfo/columns/${table.catalog}/${table.schema}/${table.name}`, { credentials: 'include', mode: 'cors' })
+            .then(response => response.json())
+            .then(data => {
+                this.setState({ ... this.state, columns: data });
+            })
+            .catch(error => alert(error));
+    }
+
+    render() {
+        return (
+            <div className="App">
+                <NavMenu setConnectionString={this.setConnectionString} />
+                <Container>
+                    <div className="row">
+                        <div className="col">
+                            <Catalogs catalogs={this.state.catalogs} loadTables={this.loadTables} />
+                        </div>
+                        <div className="col">
+                            <Tables tables={this.state.tables} loadColumns={this.loadColumns} />
+                        </div>
+                        <div className="col">
+                            <Columns columns={this.state.columns} />
+                        </div>
                     </div>
-                    <div className="col">
-                        <Tables />
-                    </div>
-                    <div className="col">
-                        <Columns />
-                    </div>
-                </div>
-            </Container>
-        </div>
-    );
+                </Container>
+            </div>
+        );
+    }
 }
 
 export default App;
