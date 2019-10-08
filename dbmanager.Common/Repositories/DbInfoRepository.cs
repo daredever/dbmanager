@@ -58,7 +58,7 @@ namespace dbmanager.Common.Repositories
 
         public async Task<IEnumerable<Table>> GetTablesAsync(Catalog catalog)
         {
-            var catalogNameParameter = $"@{nameof(catalog.Name)}";
+            var catalogNameParameter = $"@{nameof(Table.Catalog)}";
             var query =
             @$"
                 SELECT
@@ -105,18 +105,18 @@ namespace dbmanager.Common.Repositories
 
         public async Task<IEnumerable<Column>> GetColumnsAsync(Table table)
         {
-            var catalogNameParameter = $"@{nameof(table.Catalog)}";
-            var schemaNameParameter = $"@{nameof(table.Schema)}";
-            var tableNameParameter = $"@{nameof(table.Name)}";
+            var catalogNameParameter = $"@{nameof(Table.Catalog)}";
+            var schemaNameParameter = $"@{nameof(Table.Schema)}";
+            var tableNameParameter = $"@{nameof(Table.Name)}";
             var query =
             $@"
                 SELECT
-                    TABLE_CATALOG AS [Catalog],
-                    TABLE_SCHEMA AS [Schema],
-                    COLUMN_NAME AS [Name],
-                    DATA_TYPE AS [Type],
-                    IS_NULLABLE AS [IsNullable],
-                    CHARACTER_MAXIMUM_LENGTH AS [CharacterMaximumLength]
+                    TABLE_CATALOG AS [{nameof(Column.Catalog)}],
+                    TABLE_SCHEMA AS [{nameof(Column.Schema)}],
+                    COLUMN_NAME AS [{nameof(Column.Name)}],
+                    DATA_TYPE AS [{nameof(Column.Type)}],
+                    IS_NULLABLE AS [{nameof(Column.IsNullable)}],
+                    CHARACTER_MAXIMUM_LENGTH AS [{nameof(Column.CharacterMaximumLength)}]
                 FROM INFORMATION_SCHEMA.COLUMNS
                 WHERE
                     TABLE_CATALOG = {catalogNameParameter}
