@@ -151,7 +151,7 @@ namespace dbmanager.Common.Repositories
                             Name = dataReader.GetString(2),
                             Type = dataReader.GetString(3),
                             IsNullable = dataReader.GetString(4),
-                            CharacterMaximumLength = (dataReader[5] as int?).GetValueOrDefault()
+                            CharacterMaximumLength = dataReader[5] as int?
                         };
 
                         columns.Add(column);
