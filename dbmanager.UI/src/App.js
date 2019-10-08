@@ -14,6 +14,7 @@ class App extends React.Component {
         super(props);
         this.state = { catalogs: [], tables: [], columns: [] };
         this.setConnectionString = this.setConnectionString.bind(this);
+        this.loadCatalogs = this.loadCatalogs.bind(this);
         this.loadTables = this.loadTables.bind(this);
         this.loadColumns = this.loadColumns.bind(this);
     }
@@ -22,17 +23,21 @@ class App extends React.Component {
         fetch(`${url}/userdata/connectionstring/`, {
                 method: 'POST',
                 mode: 'cors',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            credentials: 'include',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                credentials: 'include',
                 body: encodeURI(`connectionString=${connectionString}`),
             })
             .then(() => {
-                fetch(`${url}/databaseinfo/catalogs`, { credentials: 'include', mode: 'cors' })
-                    .then(response => response.json())
-                    .then(data => {
-                        this.setState({ catalogs: data, tables: [], columns: [] });
-                    })
-                    .catch(error => alert(error));
+                this.loadCatalogs();
+            })
+            .catch(error => alert(error));
+    }
+
+    loadCatalogs() {
+        fetch(`${url}/databaseinfo/catalogs`, { credentials: 'include', mode: 'cors' })
+            .then(response => response.json())
+            .then(data => {
+                this.setState({ catalogs: data, tables: [], columns: [] });
             })
             .catch(error => alert(error));
     }
