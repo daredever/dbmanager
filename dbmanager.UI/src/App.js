@@ -17,6 +17,7 @@ class App extends React.Component {
         this.loadCatalogs = this.loadCatalogs.bind(this);
         this.loadTables = this.loadTables.bind(this);
         this.loadColumns = this.loadColumns.bind(this);
+        this.createTable = this.createTable.bind(this);
     }
 
     setConnectionString(connectionString) {
@@ -72,6 +73,15 @@ class App extends React.Component {
             .catch(error => alert(error));
     }
 
+    createTable(table) {
+        fetch(`${url}/generatescript/createtable/${table.catalog}/${table.schema}/${table.name}`, { credentials: 'include', mode: 'cors' })
+            .then(response => response.text())
+            .then(data => {
+                alert(data);
+            })
+            .catch(error => alert(error));
+    }
+
     render() {
         return (
             <div className="App">
@@ -82,7 +92,7 @@ class App extends React.Component {
                             <Catalogs catalogs={this.state.catalogs} loadTables={this.loadTables} />
                         </div>
                         <div className="col">
-                            <Tables tables={this.state.tables} loadColumns={this.loadColumns} />
+                            <Tables tables={this.state.tables} loadColumns={this.loadColumns} createTable={this.createTable} />
                         </div>
                         <div className="col">
                             <Columns columns={this.state.columns} />

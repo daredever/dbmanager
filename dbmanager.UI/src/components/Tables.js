@@ -9,8 +9,9 @@ class Tables extends React.Component {
     renderTableData() {
         return this.props.tables.map((table) => {
             return (
-                <tr key={table.name} onClick={() => this.props.loadColumns(table)}>
-                    <td>{table.schema}.{table.name}</td>
+                <tr key={table.name} >
+                    <td onClick={() => this.props.loadColumns(table)} >{table.schema}.{table.name}</td>
+                    <td><button onClick={() => this.props.createTable(table)}  className="btn btn-secondary btn-sm">Create</button></td>
                 </tr>
             )
         })
