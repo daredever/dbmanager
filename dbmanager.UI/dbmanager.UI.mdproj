@@ -15,7 +15,6 @@
     <None Include="src\index.css" />
     <None Include="src\App.test.js" />
     <None Include="src\serviceWorker.js" />
-    <None Include="src\logo.svg" />
     <None Include="src\App.js" />
     <None Include="public\favicon.ico" />
     <None Include="public\index.html" />
@@ -26,5 +25,13 @@
     <None Include="package-lock.json" />
     <None Include="package.json" />
     <None Include=".gitignore" />
+    <None Include="src\components\NavMenu.js" />
+    <None Include="src\components\NavMenu.css" />
+    <None Include="src\components\Catalogs.js" />
+    <None Include="src\components\Tables.js" />
+    <None Include="src\components\Columns.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="src\components\" />
   </ItemGroup>
 </Project>
