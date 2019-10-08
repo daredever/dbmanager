@@ -21,7 +21,7 @@ class Columns extends React.Component {
             <table className='table table-striped table-hover' aria-labelledby="tabelLabel">
                 <thead>
                     <tr>
-                        <th>Tables</th>
+                        <th>Columns</th>
                     </tr>
                 </thead>
                 <tbody>

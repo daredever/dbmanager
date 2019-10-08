@@ -37,15 +37,23 @@ class App extends React.Component {
         fetch(`${url}/databaseinfo/catalogs`, { credentials: 'include', mode: 'cors' })
             .then(response => response.json())
             .then(data => {
+                if (data.code) {
+                    throw Error(data.message);
+                }
+
                 this.setState({ catalogs: data, tables: [], columns: [] });
             })
-            .catch(error => alert(error));
+            .catch(error => alert(error.message));
     }
 
     loadTables(catalog) {
         fetch(`${url}/databaseinfo/tables/${catalog.name}`, { credentials: 'include', mode: 'cors' })
             .then(response => response.json())
             .then(data => {
+                if(data.code) {
+                    throw Error(data.message);
+                }
+
                 this.setState({ ... this.state, tables: data, columns: [] });
             })
             .catch(error => alert(error));
@@ -55,6 +63,10 @@ class App extends React.Component {
         fetch(`${url}/databaseinfo/columns/${table.catalog}/${table.schema}/${table.name}`, { credentials: 'include', mode: 'cors' })
             .then(response => response.json())
             .then(data => {
+                if(data.code) {
+                    throw Error(data.message);
+                }
+
                 this.setState({ ... this.state, columns: data });
             })
             .catch(error => alert(error));

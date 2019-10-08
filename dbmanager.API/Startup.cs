@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using dbmanager.API.Middleware;
 using dbmanager.Common.Repositories;
 using dbmanager.Common.Services;
 using Microsoft.AspNetCore.Builder;
@@ -79,6 +80,9 @@ namespace dbmanager.API
             app.UseCors(AllowOrigins);
 
             app.UseAuthorization();
+
+
+            app.UseMiddleware<ErrorHandlerMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {
