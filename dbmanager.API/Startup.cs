@@ -3,14 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using dbmanager.API.Middleware;
-using dbmanager.Common.Repositories;
-using dbmanager.Common.Services;
+using dbmanager.API.Exctensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
 
 namespace dbmanager.API
 {
@@ -30,18 +28,13 @@ namespace dbmanager.API
         {
             services.AddControllers();
 
-            services.AddTransient<IDbInfoRepository, DbInfoRepository>();
-            services.AddTransient<IDbInfoService, DbInfoService>();
-            services.AddTransient<IGenerateScriptService, GenerateScriptService>();
+            services.AddRepositories();
+            services.AddCommonServices();
 
             services.AddDistributedMemoryCache();
             services.AddSession();
 
-            // Register the Swagger generator,
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "dbmanager API", Version = "v1" });
-            });
+            services.AddSwagger();
 
             services.AddCors(options =>
             {
@@ -62,25 +55,11 @@ namespace dbmanager.API
             }
 
             app.UseSession();
-
             app.UseHttpsRedirection();
-
-            // Enable middleware to serve generated Swagger as a JSON endpoint.
-            app.UseSwagger();
-
-            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.)
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "API V1");
-            });
-
-
+            app.UseSwaggerMiddleware();
             app.UseRouting();
-
             app.UseCors(AllowOrigins);
-
             app.UseAuthorization();
-
 
             app.UseMiddleware<ErrorHandlerMiddleware>();
 

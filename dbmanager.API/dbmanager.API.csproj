@@ -10,6 +10,7 @@
   <ItemGroup>
     <Folder Include="Controllers\" />
     <Folder Include="Middleware\" />
+    <Folder Include="Extensions\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="WeatherForecast.cs" />
