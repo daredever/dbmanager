@@ -1,6 +1,6 @@
 # dbmanager
 
-Simple Database Manager with .Net Core 3.0 and React.
+Simple Database Manager with .Net Core 3.0, React and Bootstrap.
 
 Developed by VS 2019 for Mac (ver. 18.3.1).
 
