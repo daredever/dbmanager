@@ -20,7 +20,7 @@ namespace dbmanager.UI.Controllers
         }
 
         [HttpGet("createtable/{catalog}/{schema}/{table}")]
-        public Task<string> GetCreateTableString(string catalog, string schema, string table)
+        public Task<string> GetCreateTableStringAsync(string catalog, string schema, string table)
         {
             return _service.GetCreateTableScriptAsync(catalog, schema, table);
         }

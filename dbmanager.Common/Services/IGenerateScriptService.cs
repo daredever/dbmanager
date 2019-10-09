@@ -14,7 +14,7 @@ namespace dbmanager.Common.Services
         /// <param name="catalog">Current database</param>
         /// <param name="schema">Current schema</param>
         /// <param name="tableName">Current table</param>
-        /// <returns></returns>
+        /// <returns>Create table script</returns>
         Task<string> GetCreateTableScriptAsync(string catalog, string schema, string tableName);
     }
 }
