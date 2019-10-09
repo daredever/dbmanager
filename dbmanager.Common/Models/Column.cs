@@ -4,7 +4,7 @@ using System.Text;
 namespace dbmanager.Common.Models
 {
     /// <summary>
-    /// Tables's column
+    /// Table's column
     /// </summary>
     public class Column : DBObject
     {

@@ -23,7 +23,7 @@ namespace dbmanager.UI.Controllers
         {
             if (string.IsNullOrEmpty(connectionString))
             {
-                return Ok("Connection string not specified");
+                throw new ArgumentException("Connection string not specified");
             }
 
             _httpContextService.DBConnectionString = connectionString;

@@ -21,8 +21,12 @@ namespace dbmanager.Common.Services
             get
             {
                 // TODO change to GetString(key) 
-                _session.TryGetValue(ConnectionStringKey, out byte[] bytes);
-                return Encoding.UTF8.GetString(bytes);
+                if (_session.TryGetValue(ConnectionStringKey, out byte[] bytes))
+                {
+                    return Encoding.UTF8.GetString(bytes);
+                }
+
+                throw new ArgumentException("Connection string not specified");
             }
             set
             {
