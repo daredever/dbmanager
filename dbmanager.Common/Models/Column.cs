@@ -3,6 +3,9 @@ using System.Text;
 
 namespace dbmanager.Common.Models
 {
+    /// <summary>
+    /// Tables's column
+    /// </summary>
     public class Column : DBObject
     {
         public string IsNullable { get; set; }

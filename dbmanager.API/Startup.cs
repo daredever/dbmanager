@@ -37,6 +37,7 @@ namespace dbmanager.API
 
             services.AddSwagger();
 
+            // TODO move origins to config
             services.AddCors(options =>
             {
                 options.AddPolicy(AllowOrigins,

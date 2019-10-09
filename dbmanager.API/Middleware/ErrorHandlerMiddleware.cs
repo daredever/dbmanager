@@ -6,6 +6,9 @@ using Newtonsoft.Json;
 
 namespace dbmanager.API.Middleware
 {
+    /// <summary>
+    /// Handling runtime exceptions widdleware
+    /// </summary>
     public class ErrorHandlerMiddleware
     {
         private readonly RequestDelegate _next;

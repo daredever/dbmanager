@@ -20,6 +20,7 @@ namespace dbmanager.Common.Services
         {
             get
             {
+                // TODO change to GetString(key) 
                 _session.TryGetValue(ConnectionStringKey, out byte[] bytes);
                 return Encoding.UTF8.GetString(bytes);
             }
@@ -27,6 +28,7 @@ namespace dbmanager.Common.Services
             {
                 if (!string.IsNullOrEmpty(value))
                 {
+                    // TODO change to SetString(key, value) 
                     _session.Set(ConnectionStringKey, Encoding.UTF8.GetBytes(value));
                 }
             }
