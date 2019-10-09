@@ -1,9 +1,20 @@
 ﻿import React from 'react';
+import * as Constants from '../constants';
 
 class Tables extends React.Component {
 
     constructor(props) {
         super(props);
+        this.createTable = this.createTable.bind(this);
+    }
+
+    createTable(table) {
+        fetch(`${Constants.SERVICEURL}/generatescript/createtable/${table.catalog}/${table.schema}/${table.name}`, { credentials: 'include', mode: 'cors' })
+            .then(response => response.text())
+            .then(data => {
+                alert(data);
+            })
+            .catch(error => alert(error));
     }
 
     renderTableData() {
@@ -13,7 +24,7 @@ class Tables extends React.Component {
                     <td className="text-left" onClick={() => this.props.loadColumns(table)} >
                         {table.schema}.{table.name}</td>
                     <td>
-                        <button onClick={() => this.props.createTable(table)} className="btn btn-secondary btn-sm">
+                        <button onClick={() => this.createTable(table)} className="btn btn-secondary btn-sm">
                             Create</button></td>
                 </tr>
             )

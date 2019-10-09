@@ -30,6 +30,7 @@
     <None Include="src\components\Tables.js" />
     <None Include="src\components\Columns.js" />
     <None Include="src\components\NavMenu.js" />
+    <None Include="src\constants.js" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="src\components\" />

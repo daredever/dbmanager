@@ -1,12 +1,39 @@
 ﻿import React from 'react';
 import { Container, Navbar, NavbarBrand } from 'reactstrap';
 import './NavMenu.css';
+import * as Constants from '../constants';
 
 class NavMenu extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = { connectionString: '' };
+        this.setConnectionString = this.setConnectionString.bind(this);
+    }
+
+    componentDidMount() {
+        fetch(`${Constants.SERVICEURL}/userdata/connectionstring/`, { credentials: 'include', mode: 'cors' })
+            .then(response => response.text())
+            .then(data => {
+                if (!data.includes("code")) {
+                    this.setState({ connectionString: data });
+                }
+            }).
+            catch(error => alert(error));
+    }
+
+    setConnectionString(connectionString) {
+        fetch(`${Constants.SERVICEURL}/userdata/connectionstring/`, {
+                method: 'POST',
+                mode: 'cors',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                credentials: 'include',
+                body: encodeURI(`connectionString=${connectionString}`),
+            })
+            .then(() => {
+                this.props.loadCatalogs();
+            })
+            .catch(error => alert(error));
     }
 
     render() {
@@ -21,7 +48,7 @@ class NavMenu extends React.Component {
                                 onChange={(event) => this.setState({ connectionString: event.target.value })}
                                 title="For example, 'Data Source=localhost;Initial Catalog=master;User Id=sa;Password=P@ssword'"/>
                             <button className="btn btn-outline-success my-2 my-sm-0"
-                                onClick={() => this.props.setConnectionString(this.state.connectionString)} >
+                                onClick={() => this.setConnectionString(this.state.connectionString)} >
                                 Load data
                             </button>
                         </div>
