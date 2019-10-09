@@ -12,7 +12,7 @@ Tested on docker container with mssql/server:2017-latest-ubuntu image.
 
 To connect with DB instance, enter connection string and press "Load data".
 
-For example, 'Data Source=localhost;Initial Catalog=master;User Id=YOUR_USER;Password=YOUR_PASSWORD'
+For example, 'Data Source=localhost;Initial Catalog=master;User Id=YOUR_USER;Password=YOUR_PASSWORD'.
 
 Base layout:
 

@@ -3,7 +3,7 @@ using dbmanager.Common.Repositories;
 using dbmanager.Common.Services;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace dbmanager.API.Exctensions
+namespace dbmanager.API.Extensions
 {
     public static class ServiceExtensions
     {

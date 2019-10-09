@@ -18,8 +18,8 @@ class NavMenu extends React.Component {
                 if (!data.includes("code")) {
                     this.setState({ connectionString: data });
                 }
-            }).
-            catch(error => alert(error));
+            })
+            .catch(error => alert(error));
     }
 
     setConnectionString(connectionString) {
