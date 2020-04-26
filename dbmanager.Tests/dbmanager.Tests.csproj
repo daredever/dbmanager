@@ -19,6 +19,7 @@
     <Compile Remove="UnitTest1.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Services" />
     <Folder Include="Services\" />
   </ItemGroup>
   <ItemGroup>

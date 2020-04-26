@@ -17,7 +17,7 @@ namespace dbmanager.Common.Services
 
         public async Task<string> GetCreateTableScriptAsync(string catalog, string schema, string tableName)
         {
-            var table = new Table { Catalog = catalog, Schema = schema, Name = tableName };
+            var table = new Table {Catalog = catalog, Schema = schema, Name = tableName};
             var tableFullStr = table.ToString();
             var columns = await _repo.GetColumnsAsync(table);
             var newLine = Environment.NewLine;

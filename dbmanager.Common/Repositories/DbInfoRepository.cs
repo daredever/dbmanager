@@ -20,7 +20,7 @@ namespace dbmanager.Common.Repositories
         public async Task<IEnumerable<Catalog>> GetCatalogsAsync()
         {
             var query =
-            @$"
+                @$"
                 SELECT 
                     name as [{nameof(Catalog.Name)}]
                 FROM sys.databases;
@@ -37,7 +37,7 @@ namespace dbmanager.Common.Repositories
                 {
                     while (await dataReader.ReadAsync())
                     {
-                        catalogs.Add(new Catalog { Name = dataReader.GetString(0) });
+                        catalogs.Add(new Catalog {Name = dataReader.GetString(0)});
                     }
                 }
 
@@ -51,7 +51,7 @@ namespace dbmanager.Common.Repositories
         {
             var catalogNameParameter = $"@{nameof(Table.Catalog)}";
             var query =
-            @$"
+                @$"
                 SELECT
                     TABLE_CATALOG AS [{nameof(Table.Catalog)}],
                     TABLE_SCHEMA AS [{nameof(Table.Schema)}],
@@ -100,7 +100,7 @@ namespace dbmanager.Common.Repositories
             var schemaNameParameter = $"@{nameof(Table.Schema)}";
             var tableNameParameter = $"@{nameof(Table.Name)}";
             var query =
-            $@"
+                $@"
                 SELECT
                     TABLE_CATALOG AS [{nameof(Column.Catalog)}],
                     TABLE_SCHEMA AS [{nameof(Column.Schema)}],

@@ -26,8 +26,8 @@ namespace dbmanager.API.Middleware
             }
             catch (Exception ex)
             {
-                var code = (int)HttpStatusCode.InternalServerError;
-                var error = JsonConvert.SerializeObject(new { message = ex.Message, code });
+                var code = (int) HttpStatusCode.InternalServerError;
+                var error = JsonConvert.SerializeObject(new {message = ex.Message, code});
                 context.Response.ContentType = "application/json";
                 context.Response.StatusCode = code;
                 await context.Response.WriteAsync(error);

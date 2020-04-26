@@ -43,7 +43,8 @@ namespace dbmanager.API
                 options.AddPolicy(AllowOrigins,
                     buider =>
                     {
-                        buider.WithOrigins("http://localhost:3000").AllowAnyHeader().AllowAnyMethod().AllowCredentials();
+                        buider.WithOrigins("http://localhost:3000").AllowAnyHeader().AllowAnyMethod()
+                            .AllowCredentials();
                     });
             });
         }
@@ -65,10 +66,7 @@ namespace dbmanager.API
 
             app.UseMiddleware<ErrorHandlerMiddleware>();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }
 }

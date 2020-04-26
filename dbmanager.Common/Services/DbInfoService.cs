@@ -22,12 +22,12 @@ namespace dbmanager.Common.Services
 
         public Task<IEnumerable<Table>> GetTablesAsync(string catalog)
         {
-            return _repo.GetTablesAsync(new Catalog { Name = catalog });
+            return _repo.GetTablesAsync(new Catalog {Name = catalog});
         }
 
         public Task<IEnumerable<Column>> GetColumnsAsync(string catalog, string schema, string table)
         {
-            return _repo.GetColumnsAsync(new Table { Catalog = catalog, Schema = schema, Name = table });
+            return _repo.GetColumnsAsync(new Table {Catalog = catalog, Schema = schema, Name = table});
         }
     }
 }

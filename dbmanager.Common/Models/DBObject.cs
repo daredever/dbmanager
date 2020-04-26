@@ -1,4 +1,5 @@
 ﻿using System;
+
 namespace dbmanager.Common.Models
 {
     /// <summary>
