@@ -10,8 +10,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\App\DbManager.App.Services\DbManager.App.Services.csproj" />
-      <ProjectReference Include="..\..\Domain\DbManager.Domain.Services\DbManager.Domain.Services.csproj" />
+      <ProjectReference Include="..\..\App\DbManager.App.Services\DbManager.App.Services.csproj" />      
       <ProjectReference Include="..\DbManager.Infra.SqlServerRepositories\DbManager.Infra.SqlServerRepositories.csproj" />
     </ItemGroup>
 

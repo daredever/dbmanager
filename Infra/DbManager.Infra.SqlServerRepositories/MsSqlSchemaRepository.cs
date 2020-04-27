@@ -22,92 +22,93 @@ namespace DbManager.Infra.SqlServerRepositories
         public async Task<IReadOnlyCollection<ICatalog>> GetCatalogsAsync()
         {
             var query =
-                @$"
+                $@"
                 SELECT 
-                    name as [{nameof(Catalog.Name)}]
+                    name as [{nameof(ICatalog.Name)}]
                 FROM sys.databases;
             ";
 
-            var catalogs = new List<Catalog>();
-            using (var connection = new SqlConnection(_httpContextService.DbConnectionString))
+            var catalogs = new List<ICatalog>();
+            await using var connection = new SqlConnection(_httpContextService.DbConnectionString);
+            await connection.OpenAsync();
+
+            await using var command = new SqlCommand(query, connection);
+            await using var dataReader = await command.ExecuteReaderAsync();
+            if (dataReader.HasRows)
             {
-                await connection.OpenAsync();
-
-                using var command = new SqlCommand(query, connection);
-                using var dataReader = await command.ExecuteReaderAsync();
-                if (dataReader.HasRows)
+                while (await dataReader.ReadAsync())
                 {
-                    while (await dataReader.ReadAsync())
+                    var catalog = new Catalog
                     {
-                        catalogs.Add(new Catalog {Name = dataReader.GetString(0)});
-                    }
-                }
+                        Name = dataReader.GetString(0)
+                    };
 
-                await dataReader.CloseAsync();
+                    catalogs.Add(catalog);
+                }
             }
+
+            await dataReader.CloseAsync();
 
             return catalogs.OrderBy(c => c.Name).ToList();
         }
 
         public async Task<IReadOnlyCollection<ITable>> GetTablesAsync(ICatalog catalog)
         {
-            var catalogNameParameter = $"@{nameof(Table.Catalog)}";
+            var catalogNameParameter = $"@{nameof(ICatalog.Name)}";
             var query =
-                @$"
+                $@"
                 SELECT
-                    TABLE_CATALOG AS [{nameof(Table.Catalog)}],
-                    TABLE_SCHEMA AS [{nameof(Table.Schema)}],
-                    TABLE_NAME AS [{nameof(Table.Name)}]
+                    TABLE_CATALOG AS [{nameof(ITable.Catalog)}],
+                    TABLE_SCHEMA AS [{nameof(ITable.Schema)}],
+                    TABLE_NAME AS [{nameof(ITable.Name)}]
                 FROM INFORMATION_SCHEMA.TABLES
                 WHERE TABLE_CATALOG = {catalogNameParameter};
             ";
 
-            var tables = new List<Table>();
+            var tables = new List<ITable>();
 
-            using (var connection = new SqlConnection(_httpContextService.DbConnectionString))
+            await using var connection = new SqlConnection(_httpContextService.DbConnectionString);
+            await connection.OpenAsync();
+            await connection.ChangeDatabaseAsync(catalog.Name);
+
+            await using var command = new SqlCommand(query, connection);
+            command.Parameters.Add(new SqlParameter(catalogNameParameter, catalog.Name));
+
+            await using var dataReader = await command.ExecuteReaderAsync();
+            if (dataReader.HasRows)
             {
-                await connection.OpenAsync();
-                await connection.ChangeDatabaseAsync(catalog.Name);
-
-                using var command = new SqlCommand(query, connection);
-                command.Parameters.Add(new SqlParameter(catalogNameParameter, catalog.Name));
-
-                using var dataReader = await command.ExecuteReaderAsync();
-                if (dataReader.HasRows)
+                while (await dataReader.ReadAsync())
                 {
-                    while (await dataReader.ReadAsync())
+                    var table = new Table
                     {
-                        var table = new Table
-                        {
-                            Catalog = dataReader.GetString(0),
-                            Schema = dataReader.GetString(1),
-                            Name = dataReader.GetString(2)
-                        };
+                        Catalog = dataReader.GetString(0),
+                        Schema = dataReader.GetString(1),
+                        Name = dataReader.GetString(2)
+                    };
 
-                        tables.Add(table);
-                    }
+                    tables.Add(table);
                 }
-
-                await dataReader.CloseAsync();
             }
+
+            await dataReader.CloseAsync();
 
             return tables.OrderBy(c => c.Schema).ThenBy(c => c.Name).ToList();
         }
 
         public async Task<IReadOnlyCollection<IColumn>> GetColumnsAsync(ITable table)
         {
-            var catalogNameParameter = $"@{nameof(Table.Catalog)}";
-            var schemaNameParameter = $"@{nameof(Table.Schema)}";
-            var tableNameParameter = $"@{nameof(Table.Name)}";
+            var catalogNameParameter = $"@{nameof(ITable.Catalog)}";
+            var schemaNameParameter = $"@{nameof(ITable.Schema)}";
+            var tableNameParameter = $"@{nameof(ITable.Name)}";
             var query =
                 $@"
                 SELECT
-                    TABLE_CATALOG AS [{nameof(Column.Catalog)}],
-                    TABLE_SCHEMA AS [{nameof(Column.Schema)}],
-                    COLUMN_NAME AS [{nameof(Column.Name)}],
-                    DATA_TYPE AS [{nameof(Column.Type)}],
-                    IS_NULLABLE AS [{nameof(Column.IsNullable)}],
-                    CHARACTER_MAXIMUM_LENGTH AS [{nameof(Column.CharactersMaxLength)}]
+                    TABLE_CATALOG AS [{nameof(IColumn.Catalog)}],
+                    TABLE_SCHEMA AS [{nameof(IColumn.Schema)}],
+                    COLUMN_NAME AS [{nameof(IColumn.Name)}],
+                    DATA_TYPE AS [{nameof(IColumn.Type)}],
+                    IS_NULLABLE AS [{nameof(IColumn.IsNullable)}],
+                    CHARACTER_MAXIMUM_LENGTH AS [{nameof(IColumn.CharactersMaxLength)}]
                 FROM INFORMATION_SCHEMA.COLUMNS
                 WHERE
                     TABLE_CATALOG = {catalogNameParameter}
@@ -115,39 +116,37 @@ namespace DbManager.Infra.SqlServerRepositories
                     AND TABLE_NAME = {tableNameParameter};
             ";
 
-            var columns = new List<Column>();
+            var columns = new List<IColumn>();
 
-            using (var connection = new SqlConnection(_httpContextService.DbConnectionString))
+            await using var connection = new SqlConnection(_httpContextService.DbConnectionString);
+            await connection.OpenAsync();
+            await connection.ChangeDatabaseAsync(table.Catalog);
+
+            await using var command = new SqlCommand(query, connection);
+            command.Parameters.Add(new SqlParameter(catalogNameParameter, table.Catalog));
+            command.Parameters.Add(new SqlParameter(schemaNameParameter, table.Schema));
+            command.Parameters.Add(new SqlParameter(tableNameParameter, table.Name));
+
+            await using var dataReader = await command.ExecuteReaderAsync();
+            if (dataReader.HasRows)
             {
-                await connection.OpenAsync();
-                await connection.ChangeDatabaseAsync(table.Catalog);
-
-                using var command = new SqlCommand(query, connection);
-                command.Parameters.Add(new SqlParameter(catalogNameParameter, table.Catalog));
-                command.Parameters.Add(new SqlParameter(schemaNameParameter, table.Schema));
-                command.Parameters.Add(new SqlParameter(tableNameParameter, table.Name));
-
-                using var dataReader = await command.ExecuteReaderAsync();
-                if (dataReader.HasRows)
+                while (await dataReader.ReadAsync())
                 {
-                    while (await dataReader.ReadAsync())
+                    var column = new Column
                     {
-                        var column = new Column
-                        {
-                            Catalog = dataReader.GetString(0),
-                            Schema = dataReader.GetString(1),
-                            Name = dataReader.GetString(2),
-                            Type = dataReader.GetString(3),
-                            IsNullable = dataReader.GetString(4),
-                            CharactersMaxLength = dataReader[5] as int?
-                        };
+                        Catalog = dataReader.GetString(0),
+                        Schema = dataReader.GetString(1),
+                        Name = dataReader.GetString(2),
+                        Type = dataReader.GetString(3),
+                        IsNullable = dataReader.GetString(4),
+                        CharactersMaxLength = dataReader[5] as int?
+                    };
 
-                        columns.Add(column);
-                    }
+                    columns.Add(column);
                 }
-
-                await dataReader.CloseAsync();
             }
+
+            await dataReader.CloseAsync();
 
             return columns.OrderBy(c => c.Name).ToList();
         }
