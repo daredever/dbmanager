@@ -8,9 +8,9 @@ using DbManager.Domain.Models.DefaultImpl;
 using DbManager.Domain.Repositories;
 using DbManager.Domain.Services;
 
-namespace DbManager.Infra.SqlServerRepositories
+namespace DbManager.Infra.SqlServerRepos
 {
-    public sealed class MsSqlSchemaRepository : ISchemaRepository
+    internal sealed class MsSqlSchemaRepository : ISchemaRepository
     {
         private readonly IUserContextService _userContextService;
 

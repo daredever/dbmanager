@@ -12,7 +12,7 @@
     <ItemGroup>
       <ProjectReference Include="..\..\App\DbManager.App.Services\DbManager.App.Services.csproj" />
       <ProjectReference Include="..\DbManager.Infra.HttpServices\DbManager.Infra.HttpServices.csproj" />
-      <ProjectReference Include="..\DbManager.Infra.SqlServer\DbManager.Infra.SqlServer.csproj" />
+      <ProjectReference Include="..\DbManager.Infra.SqlServerRepos\DbManager.Infra.SqlServerRepos.csproj" />
     </ItemGroup>
 
 </Project>

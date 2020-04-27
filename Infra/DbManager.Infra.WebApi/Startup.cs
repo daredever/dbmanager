@@ -1,6 +1,6 @@
 using DbManager.App.Services.Extensions;
 using DbManager.Infra.HttpServices.Extensions;
-using DbManager.Infra.SqlServerRepositories.Extensions;
+using DbManager.Infra.SqlServerRepos.Extensions;
 using DbManager.Infra.WebApi.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -10,7 +10,7 @@ using Microsoft.Extensions.Hosting;
 
 namespace DbManager.Infra.WebApi
 {
-    public class Startup
+    internal sealed class Startup
     {
         public Startup(IConfiguration configuration)
         {
@@ -21,7 +21,6 @@ namespace DbManager.Infra.WebApi
 
         private readonly string AllowOrigins = "allow_origins";
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddHttpContextAccessor();
@@ -40,15 +39,15 @@ namespace DbManager.Infra.WebApi
             services.AddCors(options =>
             {
                 options.AddPolicy(AllowOrigins,
-                    buider =>
-                    {
-                        buider.WithOrigins("http://localhost:3000").AllowAnyHeader().AllowAnyMethod()
-                            .AllowCredentials();
-                    });
+                    builder => builder
+                        .WithOrigins("http://localhost:3000")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowCredentials()
+                );
             });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -63,7 +62,7 @@ namespace DbManager.Infra.WebApi
             app.UseCors(AllowOrigins);
             app.UseAuthorization();
 
-            app.UseMiddlewares();
+            app.UseErrorMiddleware();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }

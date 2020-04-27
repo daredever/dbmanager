@@ -22,7 +22,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{C83AB292
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbManager.Infra.WebApi", "Infra\DbManager.Infra.WebApi\DbManager.Infra.WebApi.csproj", "{23665006-147A-4CC6-87BB-0B81598D1ABF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbManager.Infra.SqlServer", "Infra\DbManager.Infra.SqlServer\DbManager.Infra.SqlServer.csproj", "{536CC204-EF23-4A2D-BAA7-412BF483C7CA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbManager.Infra.SqlServerRepos", "Infra\DbManager.Infra.SqlServerRepos\DbManager.Infra.SqlServerRepos.csproj", "{536CC204-EF23-4A2D-BAA7-412BF483C7CA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbManager.Domain.Repositories", "Domain\DbManager.Domain.Repositories\DbManager.Domain.Repositories.csproj", "{C62AAB84-CCBF-4909-A4B9-637C1625390E}"
 EndProject

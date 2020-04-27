@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
-using DbManager.Domain.Models.DefaultImpl;
 using DbManager.Domain.Services;
 using DbManager.Infra.WebApi.Dto;
+using DbManager.Infra.WebApi.Validation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -10,7 +10,7 @@ namespace DbManager.Infra.WebApi.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class GenerateScriptsController : ControllerBase
+    internal sealed class GenerateScriptsController : ControllerBase
     {
         private readonly ILogger<GenerateScriptsController> _logger;
         private readonly IDbScriptsService _dbScriptsService;
@@ -22,16 +22,17 @@ namespace DbManager.Infra.WebApi.Controllers
         }
 
         [HttpPost("createtable/{dto}")]
-        public Task<string> GetCreateTableStringAsync(TableDto dto)
+        public async Task<ActionResult<string>> GetCreateTableStringAsync(TableDto dto)
         {
-            var table = new Table
+            var validationResult = dto.Validate();
+            if (validationResult.IsValid != true)
             {
-                Catalog = dto.Catalog,
-                Schema = dto.Schema,
-                Name = dto.Name
-            };
+                return BadRequest(validationResult.Error);
+            }
 
-            return _dbScriptsService.GenerateCreateTableScriptAsync(table);
+            var table = dto.Map();
+
+            return await _dbScriptsService.GenerateCreateTableScriptAsync(table);
         }
     }
 }

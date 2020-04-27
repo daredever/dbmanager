@@ -1,6 +1,6 @@
 ﻿namespace DbManager.Infra.WebApi.Dto
 {
-    public class TableDto
+    internal class TableDto
     {
         public string Catalog { get; set; }
         public string Schema { get; set; }

@@ -7,7 +7,7 @@ namespace DbManager.Infra.WebApi.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class UserDataController : ControllerBase
+    internal sealed class UserDataController : ControllerBase
     {
         private readonly ILogger<UserDataController> _logger;
         private readonly IUserContextService _userContextService;
@@ -19,7 +19,7 @@ namespace DbManager.Infra.WebApi.Controllers
         }
 
         [HttpPost("connectionstring")]
-        public IActionResult SetConnectionString([FromForm] string connectionString)
+        public ActionResult SetConnectionString([FromForm] string connectionString)
         {
             if (string.IsNullOrEmpty(connectionString))
             {
@@ -32,7 +32,7 @@ namespace DbManager.Infra.WebApi.Controllers
         }
 
         [HttpGet("connectionstring")]
-        public string GetConnectionString()
+        public ActionResult<string> GetConnectionString()
         {
             return _userContextService.DbConnectionString;
         }

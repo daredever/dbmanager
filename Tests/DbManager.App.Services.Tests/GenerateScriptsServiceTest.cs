@@ -32,10 +32,10 @@ namespace DbManager.App.Services.Tests
             repo.Setup(d => d.GetColumnsAsync(It.IsAny<ITable>())).ReturnsAsync(columns);
 
             var dbScriptsService = new DbScriptsService(repo.Object);
-            
+
             var expectScript = "CREATE TABLE dbo.Test (" +
                                "\r\n\tid int NOT NULL," +
-                               "\r\n\tname nvarchar(100)" + 
+                               "\r\n\tname nvarchar(100)" +
                                "\r\n);";
 
             //Act
@@ -45,4 +45,4 @@ namespace DbManager.App.Services.Tests
             script.Should().BeEquivalentTo(expectScript);
         }
     }
-    }
+}

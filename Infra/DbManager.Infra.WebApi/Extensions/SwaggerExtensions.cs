@@ -4,7 +4,7 @@ using Microsoft.OpenApi.Models;
 
 namespace DbManager.Infra.WebApi.Extensions
 {
-    public static class SwaggerExtensions
+    internal static class SwaggerExtensions
     {
         public static void AddSwagger(this IServiceCollection services)
         {

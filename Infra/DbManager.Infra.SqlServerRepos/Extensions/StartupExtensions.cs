@@ -1,7 +1,7 @@
 ﻿using DbManager.Domain.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace DbManager.Infra.SqlServerRepositories.Extensions
+namespace DbManager.Infra.SqlServerRepos.Extensions
 {
     public static class StartupExtensions
     {

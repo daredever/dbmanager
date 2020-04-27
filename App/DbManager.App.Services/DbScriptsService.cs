@@ -8,7 +8,7 @@ using DbManager.Domain.Services;
 
 namespace DbManager.App.Services
 {
-    public sealed class DbScriptsService : IDbScriptsService
+    internal sealed class DbScriptsService : IDbScriptsService
     {
         private readonly ISchemaRepository _schemaRepository;
 
@@ -28,7 +28,7 @@ namespace DbManager.App.Services
         private static string GenerateColumnsScriptPart(IEnumerable<IColumn> columns)
         {
             var sb = new StringBuilder();
-            var separator = $",\r\n";
+            var separator = ",\r\n";
 
             var firstColumn = true;
             foreach (var column in columns)
