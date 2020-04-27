@@ -34,6 +34,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbManager.App.Services.Test
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbManager.Infra.HttpServices", "Infra\DbManager.Infra.HttpServices\DbManager.Infra.HttpServices.csproj", "{E1EE4972-A9F4-4B01-874C-381D5541A9DA}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deploy", "Deploy", "{3DF5FC07-DC84-4E95-877D-99E637AB1961}"
+ProjectSection(SolutionItems) = preProject
+	Deploy\docker-compose.yml = Deploy\docker-compose.yml
+EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Default|Any CPU = Default|Any CPU
