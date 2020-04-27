@@ -9,7 +9,6 @@ namespace DbManager.App.Services.Extensions
         {
             services.AddTransient<IDbSchemaService, DbSchemaService>();
             services.AddTransient<IDbScriptsService, DbScriptsService>();
-            services.AddTransient<IHttpContextService, HttpContextService>();
         }
     }
 }

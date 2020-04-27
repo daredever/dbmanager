@@ -3,7 +3,7 @@
     /// <summary>
     /// Service for working with user session.
     /// </summary>
-    public interface IHttpContextService
+    public interface IUserContextService
     {
         /// <summary>
         /// Connection string to database instance.

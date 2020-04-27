@@ -1,4 +1,5 @@
 using DbManager.App.Services.Extensions;
+using DbManager.Infra.HttpServices.Extensions;
 using DbManager.Infra.SqlServerRepositories.Extensions;
 using DbManager.Infra.WebApi.Extensions;
 using Microsoft.AspNetCore.Builder;
@@ -28,6 +29,7 @@ namespace DbManager.Infra.WebApi
 
             services.AddMsSqlRepositories();
             services.AddAppServices();
+            services.AddHttpServices();
 
             services.AddDistributedMemoryCache();
             services.AddSession();

@@ -10,12 +10,12 @@ namespace DbManager.Infra.WebApi.Controllers
     public class UserDataController : ControllerBase
     {
         private readonly ILogger<UserDataController> _logger;
-        private readonly IHttpContextService _httpContextService;
+        private readonly IUserContextService _userContextService;
 
-        public UserDataController(ILogger<UserDataController> logger, IHttpContextService httpContextService)
+        public UserDataController(ILogger<UserDataController> logger, IUserContextService userContextService)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            _httpContextService = httpContextService ?? throw new ArgumentNullException(nameof(httpContextService));
+            _userContextService = userContextService ?? throw new ArgumentNullException(nameof(userContextService));
         }
 
         [HttpPost("connectionstring")]
@@ -26,7 +26,7 @@ namespace DbManager.Infra.WebApi.Controllers
                 throw new ArgumentException("Connection string not specified");
             }
 
-            _httpContextService.DbConnectionString = connectionString;
+            _userContextService.DbConnectionString = connectionString;
 
             return Ok();
         }
@@ -34,7 +34,7 @@ namespace DbManager.Infra.WebApi.Controllers
         [HttpGet("connectionstring")]
         public string GetConnectionString()
         {
-            return _httpContextService.DbConnectionString;
+            return _userContextService.DbConnectionString;
         }
     }
 }

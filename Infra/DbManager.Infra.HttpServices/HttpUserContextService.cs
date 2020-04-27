@@ -3,14 +3,14 @@ using System.Text;
 using DbManager.Domain.Services;
 using Microsoft.AspNetCore.Http;
 
-namespace DbManager.App.Services
+namespace DbManager.Infra.HttpServices
 {
-    public sealed class HttpContextService : IHttpContextService
+    public sealed class HttpUserContextService : IUserContextService
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         private const string ConnectionStringKey = "db_connection_string";
 
-        public HttpContextService(IHttpContextAccessor httpContextAccessor)
+        public HttpUserContextService(IHttpContextAccessor httpContextAccessor)
         {
             _httpContextAccessor = httpContextAccessor ?? throw new ArgumentNullException(nameof(httpContextAccessor));
         }

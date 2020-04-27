@@ -12,11 +12,11 @@ namespace DbManager.Infra.SqlServerRepositories
 {
     public sealed class MsSqlSchemaRepository : ISchemaRepository
     {
-        private readonly IHttpContextService _httpContextService;
+        private readonly IUserContextService _userContextService;
 
-        public MsSqlSchemaRepository(IHttpContextService httpContextService)
+        public MsSqlSchemaRepository(IUserContextService userContextService)
         {
-            _httpContextService = httpContextService ?? throw new ArgumentNullException(nameof(httpContextService));
+            _userContextService = userContextService ?? throw new ArgumentNullException(nameof(userContextService));
         }
 
         public async Task<IReadOnlyCollection<ICatalog>> GetCatalogsAsync()
@@ -29,7 +29,7 @@ namespace DbManager.Infra.SqlServerRepositories
             ";
 
             var catalogs = new List<ICatalog>();
-            await using var connection = new SqlConnection(_httpContextService.DbConnectionString);
+            await using var connection = new SqlConnection(_userContextService.DbConnectionString);
             await connection.OpenAsync();
 
             await using var command = new SqlCommand(query, connection);
@@ -67,7 +67,7 @@ namespace DbManager.Infra.SqlServerRepositories
 
             var tables = new List<ITable>();
 
-            await using var connection = new SqlConnection(_httpContextService.DbConnectionString);
+            await using var connection = new SqlConnection(_userContextService.DbConnectionString);
             await connection.OpenAsync();
             await connection.ChangeDatabaseAsync(catalog.Name);
 
@@ -118,7 +118,7 @@ namespace DbManager.Infra.SqlServerRepositories
 
             var columns = new List<IColumn>();
 
-            await using var connection = new SqlConnection(_httpContextService.DbConnectionString);
+            await using var connection = new SqlConnection(_userContextService.DbConnectionString);
             await connection.OpenAsync();
             await connection.ChangeDatabaseAsync(table.Catalog);
 
