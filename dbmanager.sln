@@ -1,8 +1,6 @@
 
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dbmanager.Tests", "dbmanager.Tests\dbmanager.Tests.csproj", "{32CB9C18-ED98-428A-A917-271D2E164B85}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dbmanager.API", "dbmanager.API\dbmanager.API.csproj", "{18261C69-B0EB-46CE-A2A1-B33CC5612AA7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dbmanager.Common", "dbmanager.Common\dbmanager.Common.csproj", "{1307E22A-C1E7-4D90-80A8-CF97F0BCE87E}"
@@ -45,12 +43,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{32CB9C18-ED98-428A-A917-271D2E164B85}.Default|Any CPU.ActiveCfg = Debug|Any CPU
-		{32CB9C18-ED98-428A-A917-271D2E164B85}.Default|Any CPU.Build.0 = Debug|Any CPU
-		{32CB9C18-ED98-428A-A917-271D2E164B85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{32CB9C18-ED98-428A-A917-271D2E164B85}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{32CB9C18-ED98-428A-A917-271D2E164B85}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{32CB9C18-ED98-428A-A917-271D2E164B85}.Release|Any CPU.Build.0 = Release|Any CPU
 		{18261C69-B0EB-46CE-A2A1-B33CC5612AA7}.Default|Any CPU.ActiveCfg = Debug|Any CPU
 		{18261C69-B0EB-46CE-A2A1-B33CC5612AA7}.Default|Any CPU.Build.0 = Debug|Any CPU
 		{18261C69-B0EB-46CE-A2A1-B33CC5612AA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
