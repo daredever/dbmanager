@@ -11,7 +11,7 @@ namespace DbManager.Infra.WebApi.Extensions
             // Register the Swagger generator,
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo {Title = "dbmanager API", Version = "v1"});
+                c.SwaggerDoc("v1", new OpenApiInfo {Title = "DbManager API", Version = "v1"});
             });
         }
 

@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace DbManager.App.Services
 {
-    public class HttpContextService : IHttpContextService
+    public sealed class HttpContextService : IHttpContextService
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         private const string ConnectionStringKey = "db_connection_string";

@@ -8,7 +8,7 @@ using DbManager.Domain.Services;
 
 namespace DbManager.App.Services
 {
-    public class DbScriptsService : IDbScriptsService
+    public sealed class DbScriptsService : IDbScriptsService
     {
         private readonly ISchemaRepository _schemaRepository;
 

@@ -1,4 +1,4 @@
-﻿namespace DbManager.Domain.Models.DefaultImpl
+﻿namespace DbManager.Infra.WebApi.Dto
 {
     public class TableDto
     {

@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using DbManager.Domain.Models.DefaultImpl;
 using DbManager.Domain.Services;
+using DbManager.Infra.WebApi.Dto;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 

@@ -10,7 +10,7 @@ using DbManager.Domain.Services;
 
 namespace DbManager.Infra.SqlServerRepositories
 {
-    public class MsSqlSchemaRepository : ISchemaRepository
+    public sealed class MsSqlSchemaRepository : ISchemaRepository
     {
         private readonly IHttpContextService _httpContextService;
 

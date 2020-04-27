@@ -7,7 +7,7 @@ using DbManager.Domain.Services;
 
 namespace DbManager.App.Services
 {
-    public class DbSchemaService : IDbSchemaService
+    public sealed class DbSchemaService : IDbSchemaService
     {
         private readonly ISchemaRepository _schemaRepository;
 
