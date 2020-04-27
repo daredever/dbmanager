@@ -46,4 +46,4 @@ namespace DbManager.App.Services.Tests
             script.Should().BeEquivalentTo(expectScript);
         }
     }
-}
+    }
