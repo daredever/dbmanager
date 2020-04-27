@@ -10,11 +10,11 @@ using DbManager.Domain.Services;
 
 namespace DbManager.Infra.SqlServerRepositories
 {
-    public class SchemaRepository : ISchemaRepository
+    public class MsSqlSchemaRepository : ISchemaRepository
     {
         private readonly IHttpContextService _httpContextService;
 
-        public SchemaRepository(IHttpContextService httpContextService)
+        public MsSqlSchemaRepository(IHttpContextService httpContextService)
         {
             _httpContextService = httpContextService ?? throw new ArgumentNullException(nameof(httpContextService));
         }

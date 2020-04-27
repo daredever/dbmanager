@@ -1,9 +1,8 @@
-﻿using System;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 
-namespace dbmanager.API.Extensions
+namespace DbManager.Infra.WebApi.Extensions
 {
     public static class SwaggerExtensions
     {

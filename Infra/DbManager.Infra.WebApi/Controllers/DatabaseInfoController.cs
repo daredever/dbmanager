@@ -1,42 +1,90 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
-using dbmanager.Common.Models;
-using dbmanager.Common.Services;
+using DbManager.Domain.Models.DefaultImpl;
+using DbManager.Domain.Services;
+using DbManager.Infra.WebApi.Dto;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace dbmanager.UI.Controllers
+namespace DbManager.Infra.WebApi.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
     public class DatabaseInfoController : ControllerBase
     {
         private readonly ILogger<DatabaseInfoController> _logger;
-        private readonly IDbInfoService _service;
+        private readonly IDbSchemaService _dbSchemaService;
 
-        public DatabaseInfoController(ILogger<DatabaseInfoController> logger, IDbInfoService service)
+        public DatabaseInfoController(IDbSchemaService dbSchemaService, ILogger<DatabaseInfoController> logger)
         {
+            _dbSchemaService = dbSchemaService ?? throw new ArgumentNullException(nameof(dbSchemaService));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            _service = service ?? throw new ArgumentNullException(nameof(service));
         }
 
         [HttpGet("catalogs")]
-        public Task<IEnumerable<Catalog>> GetCatalogsAsync()
+        public async Task<IEnumerable<CatalogDto>> GetCatalogsAsync()
         {
-            return _service.GetCatalogsAsync();
+            var catalogs = await _dbSchemaService.GetCatalogsAsync();
+            var catalogsDto = catalogs
+                .Select(c =>
+                    new CatalogDto
+                    {
+                        Name = c.Name
+                    })
+                .ToList();
+
+            return catalogsDto;
         }
 
-        [HttpGet("tables/{catalog}")]
-        public Task<IEnumerable<Table>> GetTablesAsync(string catalog)
+        [HttpGet("tables/{dto}")]
+        public async Task<IEnumerable<TableDto>> GetTablesAsync(CatalogDto dto)
         {
-            return _service.GetTablesAsync(catalog);
+            var catalog = new Catalog
+            {
+                Name = dto.Name
+            };
+
+            var tables = await _dbSchemaService.GetTablesAsync(catalog);
+            var tablesDto = tables
+                .Select(t =>
+                    new TableDto
+                    {
+                        Catalog = t.Catalog,
+                        Schema = t.Schema,
+                        Name = t.Name
+                    })
+                .ToList();
+
+            return tablesDto;
         }
 
-        [HttpGet("columns/{catalog}/{schema}/{table}")]
-        public Task<IEnumerable<Column>> GetColumnsAsync(string catalog, string schema, string table)
+        [HttpGet("columns/{dto}")]
+        public async Task<IEnumerable<ColumnDto>> GetColumnsAsync(TableDto dto)
         {
-            return _service.GetColumnsAsync(catalog, schema, table);
+            var table = new Table
+            {
+                Catalog = dto.Catalog,
+                Schema = dto.Schema,
+                Name = dto.Name
+            };
+
+            var columns = await _dbSchemaService.GetColumnsAsync(table);
+            var columnsDto = columns
+                .Select(c =>
+                    new ColumnDto
+                    {
+                        Catalog = c.Catalog,
+                        Schema = c.Schema,
+                        Name = c.Name,
+                        Type = c.Type,
+                        IsNullable = c.IsNullable,
+                        CharactersMaxLength = c.CharactersMaxLength
+                    })
+                .ToList();
+
+            return columnsDto;
         }
     }
 }

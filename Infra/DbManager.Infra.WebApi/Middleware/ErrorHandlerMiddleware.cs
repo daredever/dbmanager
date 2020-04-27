@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 
-namespace dbmanager.API.Middleware
+namespace DbManager.Infra.WebApi.Middleware
 {
     /// <summary>
     /// Handling runtime exceptions middleware

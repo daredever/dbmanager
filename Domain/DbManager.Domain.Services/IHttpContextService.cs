@@ -8,6 +8,6 @@
         /// <summary>
         /// Connection string to database instance.
         /// </summary>
-        string DbConnectionString { get; }
+        string DbConnectionString { get; set; }
     }
 }

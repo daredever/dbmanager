@@ -1,9 +1,9 @@
 ﻿using System;
+using DbManager.Domain.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using dbmanager.Common.Services;
 
-namespace dbmanager.UI.Controllers
+namespace DbManager.Infra.WebApi.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
@@ -26,7 +26,7 @@ namespace dbmanager.UI.Controllers
                 throw new ArgumentException("Connection string not specified");
             }
 
-            _httpContextService.DBConnectionString = connectionString;
+            _httpContextService.DbConnectionString = connectionString;
 
             return Ok();
         }
@@ -34,7 +34,7 @@ namespace dbmanager.UI.Controllers
         [HttpGet("connectionstring")]
         public string GetConnectionString()
         {
-            return _httpContextService.DBConnectionString;
+            return _httpContextService.DbConnectionString;
         }
     }
 }

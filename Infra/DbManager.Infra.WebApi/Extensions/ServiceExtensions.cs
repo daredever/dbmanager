@@ -1,22 +1,23 @@
-﻿using System;
-using dbmanager.Common.Repositories;
-using dbmanager.Common.Services;
+﻿using DbManager.App.Services;
+using DbManager.Domain.Repositories;
+using DbManager.Domain.Services;
+using DbManager.Infra.SqlServerRepositories;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace dbmanager.API.Extensions
+namespace DbManager.Infra.WebApi.Extensions
 {
     public static class ServiceExtensions
     {
         public static void AddCommonServices(this IServiceCollection services)
         {
-            services.AddTransient<IDbInfoService, DbInfoService>();
-            services.AddTransient<IGenerateScriptService, GenerateScriptService>();
+            services.AddTransient<IDbSchemaService, DbSchemaService>();
+            services.AddTransient<IDbScriptsService, DbScriptsService>();
             services.AddTransient<IHttpContextService, HttpContextService>();
         }
 
         public static void AddRepositories(this IServiceCollection services)
         {
-            services.AddTransient<IDbInfoRepository, DbInfoRepository>();
+            services.AddTransient<ISchemaRepository, MsSqlSchemaRepository>();
         }
     }
 }
