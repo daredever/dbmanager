@@ -2,15 +2,21 @@
 
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
+        <LangVersion>default</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\..\Domain\DbManager.Domain.Repositories\DbManager.Domain.Repositories.csproj" />
+      <ProjectReference Include="..\..\Domain\DbManager.Domain.Services\DbManager.Domain.Services.csproj" />
     </ItemGroup>
 
     <ItemGroup>
       <Folder Include="Dto" />
       <Folder Include="Mappers" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="System.Data.SqlClient" Version="4.7.0" />
     </ItemGroup>
 
 </Project>
