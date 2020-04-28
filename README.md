@@ -19,3 +19,13 @@ Press "Create" to show "create table" script:
 
 ![createtable](ui-create-table.png)
 
+## Build
+
+Run command at sln folder:
+1. 'docker build -f Infra/DbManager.Infra.WebApi/dockerfile .'
+1. 'docker run -d -p 8080:80 [ContainerId]'
+
+Open browser on page [http://localhost:8080/](http://localhost:8080/).
+
+
+
