@@ -2,7 +2,6 @@
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json;
 
 namespace DbManager.Infra.WebApi.Middleware
 {
@@ -27,7 +26,7 @@ namespace DbManager.Infra.WebApi.Middleware
             catch (Exception ex)
             {
                 var code = (int) HttpStatusCode.InternalServerError;
-                var error = JsonConvert.SerializeObject(new {message = ex.Message, code});
+                var error = System.Text.Json.JsonSerializer.Serialize(new {message = ex.Message, code});
                 context.Response.ContentType = "application/json";
                 context.Response.StatusCode = code;
                 await context.Response.WriteAsync(error);

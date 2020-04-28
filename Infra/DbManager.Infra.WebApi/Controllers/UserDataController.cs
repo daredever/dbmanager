@@ -1,13 +1,15 @@
 ﻿using System;
 using DbManager.Domain.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 namespace DbManager.Infra.WebApi.Controllers
 {
     [ApiController]
+    [Produces("application/json")]
     [Route("api/[controller]")]
-    internal sealed class UserDataController : ControllerBase
+    public sealed class UserDataController : ControllerBase
     {
         private readonly ILogger<UserDataController> _logger;
         private readonly IUserContextService _userContextService;
@@ -18,23 +20,36 @@ namespace DbManager.Infra.WebApi.Controllers
             _userContextService = userContextService ?? throw new ArgumentNullException(nameof(userContextService));
         }
 
+        /// <summary>
+        /// Sets db connection string.
+        /// </summary>
+        /// <param name="connectionString">Db connection string</param>
         [HttpPost("connectionstring")]
+        [ProducesResponseType(StatusCodes.Status202Accepted)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public ActionResult SetConnectionString([FromForm] string connectionString)
         {
-            if (string.IsNullOrEmpty(connectionString))
+            if (string.IsNullOrWhiteSpace(connectionString))
             {
-                throw new ArgumentException("Connection string not specified");
+                return BadRequest("Connection string not specified");
             }
 
             _userContextService.DbConnectionString = connectionString;
 
-            return Ok();
+            return Accepted();
         }
 
+        /// <summary>
+        /// Gets db connection string.
+        /// </summary>
+        /// <returns>Connection string</returns>
         [HttpGet("connectionstring")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public ActionResult<string> GetConnectionString()
         {
-            return _userContextService.DbConnectionString;
+            return Ok(_userContextService.DbConnectionString);
         }
     }
 }

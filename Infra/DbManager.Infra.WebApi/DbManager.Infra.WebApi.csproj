@@ -5,8 +5,16 @@
         <LangVersion>default</LangVersion>
     </PropertyGroup>
 
+    <PropertyGroup>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <NoWarn>$(NoWarn);1591</NoWarn>
+        <UserSecretsId>44a27cb4-ac9d-405b-a47c-ce35a073bc86</UserSecretsId>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+        <DockerfileContext>..\..\..</DockerfileContext>
+    </PropertyGroup>
+
     <ItemGroup>
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0-rc4" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0" />
     </ItemGroup>
 
     <ItemGroup>

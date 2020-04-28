@@ -39,11 +39,12 @@ namespace DbManager.Infra.WebApi
             services.AddCors(options =>
             {
                 options.AddPolicy(AllowOrigins,
-                    builder => builder
-                        .WithOrigins("http://localhost:3000")
-                        .AllowAnyHeader()
-                        .AllowAnyMethod()
-                        .AllowCredentials()
+                    builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()
+                    // builder => builder
+                    //     .WithOrigins("http://localhost:3000")
+                    //     .AllowAnyHeader()
+                    //     .AllowAnyMethod()
+                    //     .AllowCredentials()
                 );
             });
         }

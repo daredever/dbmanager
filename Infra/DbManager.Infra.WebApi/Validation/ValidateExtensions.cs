@@ -8,12 +8,12 @@ namespace DbManager.Infra.WebApi.Validation
         {
             return new ValidationResult();
         }
-        
+
         public static ValidationResult Validate(this TableDto dto)
         {
             return new ValidationResult();
         }
-        
+
         public static ValidationResult Validate(this CatalogDto dto)
         {
             return new ValidationResult();

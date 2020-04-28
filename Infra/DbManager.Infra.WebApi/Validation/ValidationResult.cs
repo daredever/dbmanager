@@ -1,6 +1,6 @@
 ﻿namespace DbManager.Infra.WebApi.Validation
 {
-    public readonly struct ValidationResult
+    internal readonly struct ValidationResult
     {
         public ValidationResult(string error)
         {
