@@ -19,7 +19,8 @@ namespace DbManager.Infra.WebApi
 
         public IConfiguration Configuration { get; }
 
-        private readonly string AllowOrigins = "allow_origins";
+        private const string AllowOrigins = "allow_origins";
+        private const string UiHost = "UI_HOST";
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -36,15 +37,15 @@ namespace DbManager.Infra.WebApi
             services.AddSwagger();
 
             // TODO move origins to config
+
             services.AddCors(options =>
             {
                 options.AddPolicy(AllowOrigins,
-                    builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()
-                    // builder => builder
-                    //     .WithOrigins("http://localhost:3000")
-                    //     .AllowAnyHeader()
-                    //     .AllowAnyMethod()
-                    //     .AllowCredentials()
+                    builder => builder
+                        .WithOrigins(Configuration.GetValue<string>(key: UiHost))
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowCredentials()
                 );
             });
         }

@@ -34,8 +34,8 @@ namespace DbManager.App.Services.Tests
             var dbScriptsService = new DbScriptsService(repo.Object);
 
             var expectScript = "CREATE TABLE dbo.Test (" +
-                               "\r\n\tid int NOT NULL," +
-                               "\r\n\tname nvarchar(100)" +
+                               "\r\n    id int NOT NULL," +
+                               "\r\n    name nvarchar(100)" +
                                "\r\n);";
 
             //Act

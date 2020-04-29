@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container } from 'reactstrap';
+import {Container} from 'reactstrap';
 import NavMenu from './components/NavMenu';
 import Catalogs from './components/Catalogs';
 import Tables from './components/Tables';
@@ -11,47 +11,53 @@ class App extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { catalogs: [], tables: [], columns: [] };
+        this.state = {catalogs: [], tables: [], columns: []};
         this.loadCatalogs = this.loadCatalogs.bind(this);
         this.loadTables = this.loadTables.bind(this);
         this.loadColumns = this.loadColumns.bind(this);
     }
 
     loadCatalogs() {
-        fetch(`${Constants.SERVICEURL}/databaseinfo/catalogs`, { credentials: 'include', mode: 'cors' })
+        fetch(`${Constants.SERVICEURL}/databaseinfo/catalogs`, {credentials: 'include', mode: 'cors'})
             .then(response => response.json())
             .then(data => {
                 if (data.code) {
                     throw Error(data.message);
                 }
 
-                this.setState({ catalogs: data, tables: [], columns: [] });
+                this.setState({catalogs: data, tables: [], columns: []});
             })
             .catch(error => alert(error.message));
     }
 
     loadTables(catalog) {
-        fetch(`${Constants.SERVICEURL}/databaseinfo/tables/${catalog.name}`, { credentials: 'include', mode: 'cors' })
+        fetch(`${Constants.SERVICEURL}/databaseinfo/tables?name=${catalog.name}`, {
+            credentials: 'include',
+            mode: 'cors'
+        })
             .then(response => response.json())
             .then(data => {
-                if(data.code) {
+                if (data.code) {
                     throw Error(data.message);
                 }
 
-                this.setState({ ...this.state, tables: data, columns: [] });
+                this.setState({...this.state, tables: data, columns: []});
             })
             .catch(error => alert(error));
     }
 
     loadColumns(table) {
-        fetch(`${Constants.SERVICEURL}/databaseinfo/columns/${table.catalog}/${table.schema}/${table.name}`, { credentials: 'include', mode: 'cors' })
+        fetch(`${Constants.SERVICEURL}/databaseinfo/columns?catalog=${table.catalog}&schema=${table.schema}&name=${table.name}`, {
+            credentials: 'include',
+            mode: 'cors'
+        })
             .then(response => response.json())
             .then(data => {
-                if(data.code) {
+                if (data.code) {
                     throw Error(data.message);
                 }
 
-                this.setState({ ...this.state, columns: data });
+                this.setState({...this.state, columns: data});
             })
             .catch(error => alert(error));
     }
@@ -59,17 +65,17 @@ class App extends React.Component {
     render() {
         return (
             <div className="App">
-                <NavMenu loadCatalogs={this.loadCatalogs} />
+                <NavMenu loadCatalogs={this.loadCatalogs}/>
                 <Container>
                     <div className="row">
                         <div className="col">
-                            <Catalogs catalogs={this.state.catalogs} loadTables={this.loadTables} />
+                            <Catalogs catalogs={this.state.catalogs} loadTables={this.loadTables}/>
                         </div>
                         <div className="col">
-                            <Tables tables={this.state.tables} loadColumns={this.loadColumns} />
+                            <Tables tables={this.state.tables} loadColumns={this.loadColumns}/>
                         </div>
                         <div className="col">
-                            <Columns columns={this.state.columns} />
+                            <Columns columns={this.state.columns}/>
                         </div>
                     </div>
                 </Container>

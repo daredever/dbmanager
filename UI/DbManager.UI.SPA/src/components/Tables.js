@@ -9,7 +9,13 @@ class Tables extends React.Component {
     }
 
     createTable(table) {
-        fetch(`${Constants.SERVICEURL}/generatescript/createtable/${table.catalog}/${table.schema}/${table.name}`, { credentials: 'include', mode: 'cors' })
+        fetch(`${Constants.SERVICEURL}/generatescripts/createtable`, {
+            method: 'POST',
+            mode: 'cors',
+            headers: {'Content-Type': 'application/json'},
+            credentials: 'include',
+            body: (JSON.stringify(table)),
+        })
             .then(response => response.text())
             .then(data => {
                 alert(data);
@@ -20,12 +26,14 @@ class Tables extends React.Component {
     renderTableData() {
         return this.props.tables.map((table) => {
             return (
-                <tr key={table.name} >
-                    <td className="text-left" onClick={() => this.props.loadColumns(table)} >
+                <tr key={table.name}>
+                    <td className="text-left" onClick={() => this.props.loadColumns(table)}>
                         {table.schema}.{table.name}</td>
                     <td>
                         <button onClick={() => this.createTable(table)} className="btn btn-secondary btn-sm">
-                            Create</button></td>
+                            Create
+                        </button>
+                    </td>
                 </tr>
             )
         })
@@ -35,12 +43,12 @@ class Tables extends React.Component {
         return (
             <table className='table table-striped table-hover' aria-labelledby="tabelLabel">
                 <thead>
-                    <tr>
-                        <th className="text-left">Tables</th>
-                    </tr>
+                <tr>
+                    <th className="text-left">Tables</th>
+                </tr>
                 </thead>
                 <tbody>
-                    {this.renderTableData()}
+                {this.renderTableData()}
                 </tbody>
             </table>
         )

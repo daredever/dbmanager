@@ -35,4 +35,7 @@
   <ItemGroup>
     <Folder Include="src\components\" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Dockerfile" />
+  </ItemGroup>
 </Project>

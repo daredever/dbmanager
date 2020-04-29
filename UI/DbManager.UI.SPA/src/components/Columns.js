@@ -20,12 +20,12 @@ class Columns extends React.Component {
         return (
             <table className='table table-striped table-hover' aria-labelledby="tabelLabel">
                 <thead>
-                    <tr>
-                        <th className="text-left">Columns</th>
-                    </tr>
+                <tr>
+                    <th className="text-left">Columns</th>
+                </tr>
                 </thead>
                 <tbody>
-                    {this.renderTableData()}
+                {this.renderTableData()}
                 </tbody>
             </table>
         )

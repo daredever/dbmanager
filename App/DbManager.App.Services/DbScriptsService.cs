@@ -40,7 +40,7 @@ namespace DbManager.App.Services
 
                 firstColumn = false;
 
-                sb.Append("\t");
+                sb.Append(new string(' ', 4));
                 sb.Append(column.Name);
                 sb.Append(column.CharactersMaxLength != null
                     ? $" {column.Type}({column.CharactersMaxLength})"

@@ -1,5 +1,5 @@
 ﻿import React from 'react';
-import { Container, Navbar, NavbarBrand } from 'reactstrap';
+import {Container, Navbar, NavbarBrand} from 'reactstrap';
 import './NavMenu.css';
 import * as Constants from '../constants';
 
@@ -7,16 +7,16 @@ class NavMenu extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { connectionString: '' };
+        this.state = {connectionString: ''};
         this.setConnectionString = this.setConnectionString.bind(this);
     }
 
     componentDidMount() {
-        fetch(`${Constants.SERVICEURL}/userdata/connectionstring/`, { credentials: 'include', mode: 'cors' })
+        fetch(`${Constants.SERVICEURL}/userdata/connectionstring/`, {credentials: 'include', mode: 'cors'})
             .then(response => response.text())
             .then(data => {
                 if (!data.includes("code")) {
-                    this.setState({ connectionString: data });
+                    this.setState({connectionString: data});
                 }
             })
             .catch(error => alert(error));
@@ -24,12 +24,12 @@ class NavMenu extends React.Component {
 
     setConnectionString(connectionString) {
         fetch(`${Constants.SERVICEURL}/userdata/connectionstring/`, {
-                method: 'POST',
-                mode: 'cors',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                credentials: 'include',
-                body: encodeURI(`connectionString=${connectionString}`),
-            })
+            method: 'POST',
+            mode: 'cors',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            credentials: 'include',
+            body: encodeURI(`connectionString=${connectionString}`),
+        })
             .then(() => {
                 this.props.loadCatalogs();
             })
@@ -44,11 +44,11 @@ class NavMenu extends React.Component {
                         <NavbarBrand to="/">dbmanager.UI</NavbarBrand>
                         <div className="form-inline mt-2 mt-md-0">
                             <input className="form-control mr-sm-2" type="text" placeholder="db connection string"
-                                value={this.state.connectionString}
-                                onChange={(event) => this.setState({ connectionString: event.target.value })}
-                                title="For example, 'Data Source=localhost;Initial Catalog=master;User Id=sa;Password=P@ssword'"/>
+                                   value={this.state.connectionString}
+                                   onChange={(event) => this.setState({connectionString: event.target.value})}
+                                   title="For example, 'Data Source=localhost;Initial Catalog=master;User Id=sa;Password=P@ssword'"/>
                             <button className="btn btn-outline-success my-2 my-sm-0"
-                                onClick={() => this.setConnectionString(this.state.connectionString)} >
+                                    onClick={() => this.setConnectionString(this.state.connectionString)}>
                                 Load data
                             </button>
                         </div>

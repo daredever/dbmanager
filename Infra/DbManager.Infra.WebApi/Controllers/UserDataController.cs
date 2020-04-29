@@ -7,7 +7,6 @@ using Microsoft.Extensions.Logging;
 namespace DbManager.Infra.WebApi.Controllers
 {
     [ApiController]
-    [Produces("application/json")]
     [Route("api/[controller]")]
     public sealed class UserDataController : ControllerBase
     {

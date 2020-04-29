@@ -20,12 +20,12 @@ class Catalogs extends React.Component {
         return (
             <table className='table table-striped table-hover' aria-labelledby="tabelLabel">
                 <thead>
-                    <tr>
-                        <th className="text-left">Catalogs</th>
-                    </tr>
+                <tr>
+                    <th className="text-left">Catalogs</th>
+                </tr>
                 </thead>
                 <tbody>
-                    {this.renderTableData()}
+                {this.renderTableData()}
                 </tbody>
             </table>
         )

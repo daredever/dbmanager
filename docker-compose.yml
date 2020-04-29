@@ -1,6 +1,20 @@
 version: '3.1'
 services:
 
+    db-manager-ui:
+        build:
+            context: ./UI/DbManager.UI.SPA
+            dockerfile: Dockerfile
+        image: "dbmanager/ui:1.0"
+        container_name: db-manager-ui
+        volumes:
+            - /app/node_modules
+            - ./UI/DbManager.UI.SPA:/app
+        ports:
+            - 3001:3000
+        depends_on:
+            - db-manager-web-api
+
     db-manager-web-api:
         build:
             context: .
@@ -11,13 +25,14 @@ services:
         ports:
             - "8080:80"
         environment:
+            UI_HOST: "http://localhost:3001"
             LOG_LEVEL: "DEBUG"
         depends_on:
             - sql-server
 
     sql-server:
         image: "mcr.microsoft.com/mssql/server:2017-latest"
-        container_name: sql-server
+        container_name: sqlserver
         ports:
             - "1433:1433"
         environment:

@@ -1,2 +1,2 @@
-﻿// base url to dbmanager.API
-export const SERVICEURL = 'https://localhost:5001/api';
+﻿// base url to DbManager.Infra.WebApi
+export const SERVICEURL = 'http://localhost:8080/api';
