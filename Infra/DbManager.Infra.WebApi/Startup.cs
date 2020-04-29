@@ -36,8 +36,6 @@ namespace DbManager.Infra.WebApi
 
             services.AddSwagger();
 
-            // TODO move origins to config
-
             services.AddCors(options =>
             {
                 options.AddPolicy(AllowOrigins,
