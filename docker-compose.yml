@@ -4,7 +4,6 @@ services:
     db-manager-ui:
         build:
             context: ./UI/DbManager.UI.SPA
-            dockerfile: Dockerfile
         image: "dbmanager/ui:1.0"
         container_name: db-manager-ui
         volumes:
@@ -23,7 +22,7 @@ services:
         container_name: db-manager-web-api
         restart: always
         ports:
-            - "8080:80"
+            - 8080:80
         environment:
             UI_HOST: "http://localhost:3001"
             LOG_LEVEL: "DEBUG"
@@ -34,7 +33,7 @@ services:
         image: "mcr.microsoft.com/mssql/server:2017-latest"
         container_name: sqlserver
         ports:
-            - "1433:1433"
+            - 1433:1433
         environment:
             SA_PASSWORD: "16F74A6C-F89D-4306-BD13-C972A86DE213"
             ACCEPT_EULA: "Y"
