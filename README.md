@@ -3,7 +3,11 @@
 ## Summary
 
 Simple Database Manager with .Net Core 3.1, React and Bootstrap.
-Tested on docker container with mssql/server:2017-latest-ubuntu image.
+The main goal is to use fewer third-party nuget packages.
+
+Solution designed with Onion architecture.
+
+Tested on docker container with mssql/server:2017-latest image.
 
 ## Examples
 
