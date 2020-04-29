@@ -9,7 +9,7 @@ Tested on docker container with mssql/server:2017-latest-ubuntu image.
 
 To connect with Sql Server DB instance, enter connection string and press "Load data".
 
-For example, 'Data Source=localhost;Initial Catalog=master;User Id=USER;Password=PASSWORD'.
+For example, 'Data Source=sql-server;Initial Catalog=master;User Id=sa;Password=16F74A6C-F89D-4306-BD13-C972A86DE213'.
 
 Base layout:
 
@@ -19,11 +19,9 @@ Press "Create" to show "create table" script:
 
 ![createtable](ui-create-table.png)
 
-## Build
+## Build and Run
 
-Run command at sln folder:
-1. 'docker build -f Infra/DbManager.Infra.WebApi/dockerfile .'
-1. 'docker run -d -p 8080:80 [ContainerId]'
+Run command at sln folder 'docker-compose up -d --build'.
 
 Open browser on page [http://localhost:8080/](http://localhost:8080/).
 

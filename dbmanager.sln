@@ -4,6 +4,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3C950476-4232-408A-8DC5-78A17987F790}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
+		docker-compose.yml = docker-compose.yml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "App", "App", "{4910F0ED-D3EF-456E-BBC7-FD12033C4C9F}"
@@ -33,11 +34,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbManager.App.Services.Tests", "Tests\DbManager.App.Services.Tests\DbManager.App.Services.Tests.csproj", "{D74AEC03-0DC1-4FD2-9857-36319C36777A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbManager.Infra.HttpServices", "Infra\DbManager.Infra.HttpServices\DbManager.Infra.HttpServices.csproj", "{E1EE4972-A9F4-4B01-874C-381D5541A9DA}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deploy", "Deploy", "{3DF5FC07-DC84-4E95-877D-99E637AB1961}"
-ProjectSection(SolutionItems) = preProject
-	Deploy\docker-compose.yml = Deploy\docker-compose.yml
-EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
