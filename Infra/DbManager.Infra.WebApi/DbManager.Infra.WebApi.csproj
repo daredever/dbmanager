@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <LangVersion>default</LangVersion>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <NoWarn>$(NoWarn);1591</NoWarn>
+        <UserSecretsId>44a27cb4-ac9d-405b-a47c-ce35a073bc86</UserSecretsId>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+        <DockerfileContext>..\..</DockerfileContext>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.9.5" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\App\DbManager.App.Services\DbManager.App.Services.csproj" />
+      <ProjectReference Include="..\DbManager.Infra.HttpServices\DbManager.Infra.HttpServices.csproj" />
+      <ProjectReference Include="..\DbManager.Infra.SqlServerRepos\DbManager.Infra.SqlServerRepos.csproj" />
+    </ItemGroup>
+
+</Project>

@@ -1,21 +1,35 @@
 
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-Project("{9344BDBB-3E7F-41FC-A0DD-8665D75EE146}") = "dbmanager.UI", "dbmanager.UI\dbmanager.UI.mdproj", "{78DCC450-B1E1-47F6-9896-275CBD5722AA}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dbmanager.Tests", "dbmanager.Tests\dbmanager.Tests.csproj", "{32CB9C18-ED98-428A-A917-271D2E164B85}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dbmanager.API", "dbmanager.API\dbmanager.API.csproj", "{18261C69-B0EB-46CE-A2A1-B33CC5612AA7}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dbmanager.Common", "dbmanager.Common\dbmanager.Common.csproj", "{1307E22A-C1E7-4D90-80A8-CF97F0BCE87E}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3C950476-4232-408A-8DC5-78A17987F790}"
 	ProjectSection(SolutionItems) = preProject
-		.gitignore = .gitignore
 		README.md = README.md
-		ui-create-table.png = ui-create-table.png
-		ui-base-layout.png = ui-base-layout.png
+		docker-compose.yml = docker-compose.yml
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "App", "App", "{4910F0ED-D3EF-456E-BBC7-FD12033C4C9F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infra", "Infra", "{51546D9A-9194-4528-ACB9-F77299D31744}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{6377EF81-84C0-48D0-AA9B-E5E36A747954}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbManager.Domain.Models", "Domain\DbManager.Domain.Models\DbManager.Domain.Models.csproj", "{761C5CA1-C6D3-4B18-A5BA-0E61DFFBB7A0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbManager.App.Services", "App\DbManager.App.Services\DbManager.App.Services.csproj", "{39CC1BCC-C259-4755-86DE-DCC2734C403A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{C83AB292-1D55-4CA4-8E8B-01BE9073988B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbManager.Infra.WebApi", "Infra\DbManager.Infra.WebApi\DbManager.Infra.WebApi.csproj", "{23665006-147A-4CC6-87BB-0B81598D1ABF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbManager.Infra.SqlServerRepos", "Infra\DbManager.Infra.SqlServerRepos\DbManager.Infra.SqlServerRepos.csproj", "{536CC204-EF23-4A2D-BAA7-412BF483C7CA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbManager.Domain.Repositories", "Domain\DbManager.Domain.Repositories\DbManager.Domain.Repositories.csproj", "{C62AAB84-CCBF-4909-A4B9-637C1625390E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbManager.Domain.Services", "Domain\DbManager.Domain.Services\DbManager.Domain.Services.csproj", "{77D13F4F-CF76-491A-A539-67C6E4CA66CE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbManager.App.Services.Tests", "Tests\DbManager.App.Services.Tests\DbManager.App.Services.Tests.csproj", "{D74AEC03-0DC1-4FD2-9857-36319C36777A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbManager.Infra.HttpServices", "Infra\DbManager.Infra.HttpServices\DbManager.Infra.HttpServices.csproj", "{E1EE4972-A9F4-4B01-874C-381D5541A9DA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,29 +38,63 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{78DCC450-B1E1-47F6-9896-275CBD5722AA}.Default|Any CPU.ActiveCfg = Default|Any CPU
-		{78DCC450-B1E1-47F6-9896-275CBD5722AA}.Default|Any CPU.Build.0 = Default|Any CPU
-		{78DCC450-B1E1-47F6-9896-275CBD5722AA}.Debug|Any CPU.ActiveCfg = Default|Any CPU
-		{78DCC450-B1E1-47F6-9896-275CBD5722AA}.Debug|Any CPU.Build.0 = Default|Any CPU
-		{78DCC450-B1E1-47F6-9896-275CBD5722AA}.Release|Any CPU.ActiveCfg = Default|Any CPU
-		{78DCC450-B1E1-47F6-9896-275CBD5722AA}.Release|Any CPU.Build.0 = Default|Any CPU
-		{32CB9C18-ED98-428A-A917-271D2E164B85}.Default|Any CPU.ActiveCfg = Debug|Any CPU
-		{32CB9C18-ED98-428A-A917-271D2E164B85}.Default|Any CPU.Build.0 = Debug|Any CPU
-		{32CB9C18-ED98-428A-A917-271D2E164B85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{32CB9C18-ED98-428A-A917-271D2E164B85}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{32CB9C18-ED98-428A-A917-271D2E164B85}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{32CB9C18-ED98-428A-A917-271D2E164B85}.Release|Any CPU.Build.0 = Release|Any CPU
-		{18261C69-B0EB-46CE-A2A1-B33CC5612AA7}.Default|Any CPU.ActiveCfg = Debug|Any CPU
-		{18261C69-B0EB-46CE-A2A1-B33CC5612AA7}.Default|Any CPU.Build.0 = Debug|Any CPU
-		{18261C69-B0EB-46CE-A2A1-B33CC5612AA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{18261C69-B0EB-46CE-A2A1-B33CC5612AA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{18261C69-B0EB-46CE-A2A1-B33CC5612AA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{18261C69-B0EB-46CE-A2A1-B33CC5612AA7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1307E22A-C1E7-4D90-80A8-CF97F0BCE87E}.Default|Any CPU.ActiveCfg = Debug|Any CPU
-		{1307E22A-C1E7-4D90-80A8-CF97F0BCE87E}.Default|Any CPU.Build.0 = Debug|Any CPU
-		{1307E22A-C1E7-4D90-80A8-CF97F0BCE87E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1307E22A-C1E7-4D90-80A8-CF97F0BCE87E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1307E22A-C1E7-4D90-80A8-CF97F0BCE87E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1307E22A-C1E7-4D90-80A8-CF97F0BCE87E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{761C5CA1-C6D3-4B18-A5BA-0E61DFFBB7A0}.Default|Any CPU.ActiveCfg = Debug|Any CPU
+		{761C5CA1-C6D3-4B18-A5BA-0E61DFFBB7A0}.Default|Any CPU.Build.0 = Debug|Any CPU
+		{761C5CA1-C6D3-4B18-A5BA-0E61DFFBB7A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{761C5CA1-C6D3-4B18-A5BA-0E61DFFBB7A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{761C5CA1-C6D3-4B18-A5BA-0E61DFFBB7A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{761C5CA1-C6D3-4B18-A5BA-0E61DFFBB7A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39CC1BCC-C259-4755-86DE-DCC2734C403A}.Default|Any CPU.ActiveCfg = Debug|Any CPU
+		{39CC1BCC-C259-4755-86DE-DCC2734C403A}.Default|Any CPU.Build.0 = Debug|Any CPU
+		{39CC1BCC-C259-4755-86DE-DCC2734C403A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39CC1BCC-C259-4755-86DE-DCC2734C403A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39CC1BCC-C259-4755-86DE-DCC2734C403A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39CC1BCC-C259-4755-86DE-DCC2734C403A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23665006-147A-4CC6-87BB-0B81598D1ABF}.Default|Any CPU.ActiveCfg = Debug|Any CPU
+		{23665006-147A-4CC6-87BB-0B81598D1ABF}.Default|Any CPU.Build.0 = Debug|Any CPU
+		{23665006-147A-4CC6-87BB-0B81598D1ABF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23665006-147A-4CC6-87BB-0B81598D1ABF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23665006-147A-4CC6-87BB-0B81598D1ABF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23665006-147A-4CC6-87BB-0B81598D1ABF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{536CC204-EF23-4A2D-BAA7-412BF483C7CA}.Default|Any CPU.ActiveCfg = Debug|Any CPU
+		{536CC204-EF23-4A2D-BAA7-412BF483C7CA}.Default|Any CPU.Build.0 = Debug|Any CPU
+		{536CC204-EF23-4A2D-BAA7-412BF483C7CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{536CC204-EF23-4A2D-BAA7-412BF483C7CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{536CC204-EF23-4A2D-BAA7-412BF483C7CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{536CC204-EF23-4A2D-BAA7-412BF483C7CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C62AAB84-CCBF-4909-A4B9-637C1625390E}.Default|Any CPU.ActiveCfg = Debug|Any CPU
+		{C62AAB84-CCBF-4909-A4B9-637C1625390E}.Default|Any CPU.Build.0 = Debug|Any CPU
+		{C62AAB84-CCBF-4909-A4B9-637C1625390E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C62AAB84-CCBF-4909-A4B9-637C1625390E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C62AAB84-CCBF-4909-A4B9-637C1625390E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C62AAB84-CCBF-4909-A4B9-637C1625390E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77D13F4F-CF76-491A-A539-67C6E4CA66CE}.Default|Any CPU.ActiveCfg = Debug|Any CPU
+		{77D13F4F-CF76-491A-A539-67C6E4CA66CE}.Default|Any CPU.Build.0 = Debug|Any CPU
+		{77D13F4F-CF76-491A-A539-67C6E4CA66CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77D13F4F-CF76-491A-A539-67C6E4CA66CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77D13F4F-CF76-491A-A539-67C6E4CA66CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77D13F4F-CF76-491A-A539-67C6E4CA66CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D74AEC03-0DC1-4FD2-9857-36319C36777A}.Default|Any CPU.ActiveCfg = Debug|Any CPU
+		{D74AEC03-0DC1-4FD2-9857-36319C36777A}.Default|Any CPU.Build.0 = Debug|Any CPU
+		{D74AEC03-0DC1-4FD2-9857-36319C36777A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D74AEC03-0DC1-4FD2-9857-36319C36777A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D74AEC03-0DC1-4FD2-9857-36319C36777A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D74AEC03-0DC1-4FD2-9857-36319C36777A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1EE4972-A9F4-4B01-874C-381D5541A9DA}.Default|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1EE4972-A9F4-4B01-874C-381D5541A9DA}.Default|Any CPU.Build.0 = Debug|Any CPU
+		{E1EE4972-A9F4-4B01-874C-381D5541A9DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1EE4972-A9F4-4B01-874C-381D5541A9DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1EE4972-A9F4-4B01-874C-381D5541A9DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1EE4972-A9F4-4B01-874C-381D5541A9DA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{761C5CA1-C6D3-4B18-A5BA-0E61DFFBB7A0} = {6377EF81-84C0-48D0-AA9B-E5E36A747954}
+		{39CC1BCC-C259-4755-86DE-DCC2734C403A} = {4910F0ED-D3EF-456E-BBC7-FD12033C4C9F}
+		{23665006-147A-4CC6-87BB-0B81598D1ABF} = {51546D9A-9194-4528-ACB9-F77299D31744}
+		{536CC204-EF23-4A2D-BAA7-412BF483C7CA} = {51546D9A-9194-4528-ACB9-F77299D31744}
+		{C62AAB84-CCBF-4909-A4B9-637C1625390E} = {6377EF81-84C0-48D0-AA9B-E5E36A747954}
+		{77D13F4F-CF76-491A-A539-67C6E4CA66CE} = {6377EF81-84C0-48D0-AA9B-E5E36A747954}
+		{D74AEC03-0DC1-4FD2-9857-36319C36777A} = {C83AB292-1D55-4CA4-8E8B-01BE9073988B}
+		{E1EE4972-A9F4-4B01-874C-381D5541A9DA} = {51546D9A-9194-4528-ACB9-F77299D31744}
 	EndGlobalSection
 EndGlobal

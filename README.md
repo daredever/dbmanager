@@ -1,24 +1,38 @@
 # dbmanager
 
-### Summary
+## Summary
 
-Simple Database Manager with .Net Core 3.0, React and Bootstrap.
+Simple Database Manager with .Net Core 3.1, React and Bootstrap.
+The main goal is to use fewer third-party nuget packages.
 
-Developed by VS 2019 for Mac (ver. 18.3.1).
+Solution designed with Onion architecture.
 
-Tested on docker container with mssql/server:2017-latest-ubuntu image.
+Tested on docker container with mssql/server:2017-latest image.
 
-### Examples
+## Examples
 
-To connect with DB instance, enter connection string and press "Load data".
+To connect with Sql Server DB instance, enter connection string and press "Load data".
 
-For example, 'Data Source=localhost;Initial Catalog=master;User Id=YOUR_USER;Password=YOUR_PASSWORD'.
+For example, 'Data Source=sql-server;Initial Catalog=master;User Id=sa;Password=16F74A6C-F89D-4306-BD13-C972A86DE213'.
 
 Base layout:
 
-![base](https://github.com/daredever/dbmanager/blob/dev/ui-base-layout.png)
+![base](images/ui-base-layout.png)
 
 Press "Create" to show "create table" script:
 
-![createtable](https://github.com/daredever/dbmanager/blob/dev/ui-create-table.png)
+![createtable](images/ui-create-table.png)
+
+## Build and Run
+
+To start: run command at sln folder 'docker-compose up -d --build'.
+To stop: run command at sln folder 'docker-compose stop'.
+
+Swagger is available on page [http://localhost:8080/](http://localhost:8080/).
+
+UI is available on page [http://localhost:3001/](http://localhost:3001/).
+
+![docker](images/docker.png)
+
+
 
