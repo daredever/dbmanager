@@ -1,6 +1,6 @@
 ﻿namespace DbManager.Infra.WebApi.Dto
 {
-    public class ColumnDto
+    public sealed class ColumnDto
     {
         public string Catalog { get; set; }
         public string Schema { get; set; }

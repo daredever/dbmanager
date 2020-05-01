@@ -8,7 +8,7 @@ namespace DbManager.Infra.WebApi.Middleware
     /// <summary>
     /// Handling runtime exceptions middleware
     /// </summary>
-    internal class ErrorHandlerMiddleware
+    internal sealed class ErrorHandlerMiddleware
     {
         private readonly RequestDelegate _next;
 

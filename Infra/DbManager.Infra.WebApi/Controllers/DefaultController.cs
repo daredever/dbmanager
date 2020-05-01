@@ -4,7 +4,7 @@ namespace DbManager.Infra.WebApi.Controllers
 {
     [ApiController]
     [ApiExplorerSettings(IgnoreApi = true)]
-    public class DefaultController : ControllerBase
+    public sealed class DefaultController : ControllerBase
     {
         [HttpGet("")]
         public IActionResult Index()
