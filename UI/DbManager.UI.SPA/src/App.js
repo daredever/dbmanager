@@ -27,7 +27,7 @@ class App extends React.Component {
 
                 this.setState({catalogs: data, tables: [], columns: []});
             })
-            .catch(error => alert(error.message));
+            .catch(error => alert(error));
     }
 
     loadTables(catalog) {

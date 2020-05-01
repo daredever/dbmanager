@@ -44,7 +44,7 @@ class Tables extends React.Component {
             <table className='table table-striped table-hover' aria-labelledby="tabelLabel">
                 <thead>
                 <tr>
-                    <th className="text-left">Tables</th>
+                    <th className="text-left" colspan="2">Tables</th>
                 </tr>
                 </thead>
                 <tbody>
