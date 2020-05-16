@@ -11,6 +11,7 @@ namespace DbManager.App.Services
     internal sealed class DbScriptsService : IDbScriptsService
     {
         private readonly ISchemaRepository _schemaRepository;
+        private const string NewLine = "\r\n";
 
         public DbScriptsService(ISchemaRepository schemaRepository)
         {
@@ -21,14 +22,14 @@ namespace DbManager.App.Services
         {
             var columns = await _schemaRepository.GetColumnsAsync(table).ConfigureAwait(false);
             return $"CREATE TABLE {table.Schema}.{table.Name} (" +
-                   $"\r\n{GenerateColumnsScriptPart(columns)}\r\n" +
+                   $"{NewLine}{GenerateColumnsScriptPart(columns)}{NewLine}" +
                    ");";
         }
 
         private static string GenerateColumnsScriptPart(IEnumerable<IColumn> columns)
         {
             var sb = new StringBuilder();
-            var separator = ",\r\n";
+            var separator = $",{NewLine}";
 
             var firstColumn = true;
             foreach (var column in columns)
