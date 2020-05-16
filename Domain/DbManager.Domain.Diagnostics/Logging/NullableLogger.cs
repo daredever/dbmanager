@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging;
 
 namespace DbManager.Domain.Diagnostics.Logging
 {
-    internal class NullableLogger : INullableLogger
+    internal sealed class NullableLogger : INullableLogger
     {
         private readonly ILogger _logger;
         private readonly LogWithLevel? _trace;
