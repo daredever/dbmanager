@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DbManager.Domain.Diagnostics.Logging;
 using DbManager.Domain.Services;
 using DbManager.Infra.WebApi.Dto;
 using DbManager.Infra.WebApi.Validation;
@@ -16,54 +17,88 @@ namespace DbManager.Infra.WebApi.Controllers
     [Route("api/[controller]")]
     public sealed class DatabaseInfoController : ControllerBase
     {
-        private readonly ILogger<DatabaseInfoController> _logger;
+        private readonly INullableLogger _logger;
         private readonly IDbSchemaService _dbSchemaService;
 
         public DatabaseInfoController(IDbSchemaService dbSchemaService, ILogger<DatabaseInfoController> logger)
         {
             _dbSchemaService = dbSchemaService ?? throw new ArgumentNullException(nameof(dbSchemaService));
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _logger = logger.Wrap() ?? throw new ArgumentNullException(nameof(logger));
         }
 
         /// <summary>
         /// Gets catalogs for database instance.
         /// </summary>
         /// <returns>Catalogs</returns>
-        /// <response code="200"></response>
-        /// <response code="400"></response>
         [HttpGet("catalogs")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<IEnumerable<CatalogDto>>> GetCatalogsAsync()
         {
-            var catalogs = await _dbSchemaService.GetCatalogsAsync();
+            using var loggingScope = _logger.BeginScope("[Getting all catalogs for db]");
 
-            return Ok(catalogs.Select(catalog => catalog.Map()).ToList());
+            try
+            {
+                _logger.Info?.Log($"Starts processing.");
+
+                _logger.Trace?.Log($"Get catalogs from db instance.");
+                var catalogs = await _dbSchemaService.GetCatalogsAsync();
+
+                _logger.Trace?.Log($"Mapping from model to dto.");
+                var result = catalogs.Select(catalog => catalog.Map()).ToList();
+                
+                _logger.Debug?.Log($"Result count: '{result.Count}'.");
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error?.Log($"Failed, reason: '{ex}'.");
+                return Problem(ex.Message);
+            }
         }
 
         /// <summary>
         /// Gets tables for specified catalog.
         /// </summary>
         /// <param name="catalogDto">Catalog</param>
-        /// <returns>Tables</returns>
-        /// <response code="200"></response>
-        /// <response code="400"></response>  
+        /// <returns>Tables</returns> 
         [HttpGet("tables")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<IEnumerable<TableDto>>> GetTablesAsync([FromQuery] CatalogDto catalogDto)
         {
-            var validationResult = catalogDto.Validate();
-            if (validationResult.IsValid != true)
+            using var loggingScope = _logger.BeginScope("[Getting table for catalog]");
+
+            try
             {
-                return BadRequest(validationResult.Error);
+                _logger.Info?.Log($"Starts processing.");
+
+                _logger.Trace?.Log($"Validation of '{nameof(catalogDto)}'.");
+                var validationResult = catalogDto.Validate();
+                if (validationResult.IsValid != true)
+                {
+                    _logger.Error?.Log($"Validation error: '{validationResult.Error}'.");
+                    return ValidationProblem(validationResult.Error);
+                }
+
+                _logger.Trace?.Log($"Mapping from dto to model.");
+                var catalog = catalogDto.Map();
+                
+                _logger.Trace?.Log($"Get tables from db instance.");
+                var tables = await _dbSchemaService.GetTablesAsync(catalog);
+
+                _logger.Trace?.Log($"Mapping from model to dto.");
+                var result = tables.Select(table => table.Map()).ToList();
+                
+                _logger.Debug?.Log($"Result count: '{result.Count}'.");
+                return Ok(result);
             }
-
-            var catalog = catalogDto.Map();
-            var tables = await _dbSchemaService.GetTablesAsync(catalog);
-
-            return Ok(tables.Select(table => table.Map()).ToList());
+            catch (Exception ex)
+            {
+                _logger.Error?.Log($"Failed, reason: '{ex}'.");
+                return Problem(ex.Message);
+            }
         }
 
         /// <summary>
@@ -77,16 +112,37 @@ namespace DbManager.Infra.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<IEnumerable<ColumnDto>>> GetColumnsAsync([FromQuery] TableDto tableDto)
         {
-            var validationResult = tableDto.Validate();
-            if (validationResult.IsValid != true)
+            using var loggingScope = _logger.BeginScope("Getting columns for table]");
+
+            try
             {
-                return BadRequest(validationResult.Error);
+                _logger.Info?.Log($"Starts processing.");
+
+                _logger.Trace?.Log($"Validation of '{nameof(tableDto)}'.");
+                var validationResult = tableDto.Validate();
+                if (validationResult.IsValid != true)
+                {
+                    _logger.Error?.Log($"Validation error: '{validationResult.Error}'.");
+                    return ValidationProblem(validationResult.Error);
+                }
+
+                _logger.Trace?.Log($"Mapping from dto to model.");
+                var table = tableDto.Map();
+                
+                _logger.Trace?.Log($"Get columns from db instance.");
+                var columns = await _dbSchemaService.GetColumnsAsync(table);
+
+                _logger.Trace?.Log($"Mapping from model to dto.");
+                var result = columns.Select(column => column.Map()).ToList();
+                
+                _logger.Debug?.Log($"Result count: '{result.Count}'.");
+                return Ok(result);
             }
-
-            var table = tableDto.Map();
-            var columns = await _dbSchemaService.GetColumnsAsync(table);
-
-            return Ok(columns.Select(column => column.Map()).ToList());
+            catch (Exception ex)
+            {
+                _logger.Error?.Log($"Failed, reason: '{ex}'.");
+                return Problem(ex.Message);
+            }
         }
     }
 }

@@ -21,6 +21,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\App\DbManager.App.Services\DbManager.App.Services.csproj" />
+      <ProjectReference Include="..\..\Domain\DbManager.Domain.Diagnostics\DbManager.Domain.Diagnostics.csproj" />
       <ProjectReference Include="..\DbManager.Infra.HttpServices\DbManager.Infra.HttpServices.csproj" />
       <ProjectReference Include="..\DbManager.Infra.SqlServerRepos\DbManager.Infra.SqlServerRepos.csproj" />
     </ItemGroup>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using DbManager.Domain.Diagnostics.Logging;
 using DbManager.Domain.Services;
 using DbManager.Infra.WebApi.Dto;
 using DbManager.Infra.WebApi.Validation;
@@ -13,13 +14,13 @@ namespace DbManager.Infra.WebApi.Controllers
     [Route("api/[controller]")]
     public sealed class GenerateScriptsController : ControllerBase
     {
-        private readonly ILogger<GenerateScriptsController> _logger;
+        private readonly INullableLogger _logger;
         private readonly IDbScriptsService _dbScriptsService;
 
         public GenerateScriptsController(IDbScriptsService dbScriptsService, ILogger<GenerateScriptsController> logger)
         {
             _dbScriptsService = dbScriptsService ?? throw new ArgumentNullException(nameof(dbScriptsService));
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _logger = logger.Wrap() ?? throw new ArgumentNullException(nameof(logger));
         }
 
         /// <summary>
@@ -33,16 +34,36 @@ namespace DbManager.Infra.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<string>> GenerateCreateTableStringAsync(TableDto tableDto)
         {
-            var validationResult = tableDto.Validate();
-            if (validationResult.IsValid != true)
+            using var loggingScope = _logger.BeginScope("[Generating create table script]");
+
+            try
             {
-                return BadRequest(validationResult.Error);
+                _logger.Info?.Log($"Starts processing.");
+
+                _logger.Trace?.Log($"Validation of '{nameof(tableDto)}'.");
+                var validationResult = tableDto.Validate();
+                if (validationResult.IsValid != true)
+                {
+                    _logger.Error?.Log($"Validation error: '{validationResult.Error}'.");
+                    return ValidationProblem(validationResult.Error);
+                }
+
+                _logger.Trace?.Log($"Mapping from dto to model.");
+                var table = tableDto.Map();
+
+                _logger.Trace?.Log($"Starts generating create table script " +
+                                   $"for table '{table.Catalog}.{table.Schema}.{table.Name}'.");
+                var script = await _dbScriptsService.GenerateCreateTableScriptAsync(table);
+
+                _logger.Debug?.Log($"Result '{script}'.");
+
+                return Ok(script);
             }
-
-            var table = tableDto.Map();
-            var script = await _dbScriptsService.GenerateCreateTableScriptAsync(table);
-
-            return Ok(script);
+            catch (Exception ex)
+            {
+                _logger.Error?.Log($"Failed, reason: '{ex}'.");
+                return Problem(ex.Message);
+            }
         }
     }
 }
