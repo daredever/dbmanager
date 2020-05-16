@@ -4,11 +4,11 @@ namespace DbManager.Domain.Diagnostics.Logging
 {
     public interface INullableLogger : ILogger
     {
-        ILog Trace { get; }
-        ILog Debug { get; }
-        ILog Info { get; }
-        ILog Warn { get; }
-        ILog Error { get; }
-        ILog Critical { get; }
+        LogWithLevel? Trace { get; }
+        LogWithLevel? Debug { get; }
+        LogWithLevel? Info { get; }
+        LogWithLevel? Warn { get; }
+        LogWithLevel? Error { get; }
+        LogWithLevel? Critical { get; }
     }
 }
