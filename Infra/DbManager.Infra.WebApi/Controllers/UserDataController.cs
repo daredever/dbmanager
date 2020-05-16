@@ -31,11 +31,11 @@ namespace DbManager.Infra.WebApi.Controllers
         public ActionResult SetConnectionString([FromForm] string connectionString)
         {
             using var loggingScope = _logger.BeginScope("[Setting connection string]");
-            
+
             try
             {
                 _logger.Info?.Log($"Starts processing.");
-                
+
                 _logger.Trace?.Log($"Validation of '{nameof(connectionString)}'.");
                 if (string.IsNullOrWhiteSpace(connectionString))
                 {
@@ -66,14 +66,14 @@ namespace DbManager.Infra.WebApi.Controllers
         public ActionResult<string> GetConnectionString()
         {
             using var loggingScope = _logger.BeginScope("[Getting connection string]");
-            
+
             try
             {
                 _logger.Info?.Log($"Starts processing.");
-                
+
                 _logger.Trace?.Log($"Get connection string from user context.");
                 var dbConnectionString = _userContextService.DbConnectionString;
-                
+
                 _logger.Debug?.Log($"Result '{dbConnectionString}'.");
                 return Ok(dbConnectionString);
             }

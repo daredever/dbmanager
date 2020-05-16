@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace DbManager.Domain.Diagnostics.Logging
+﻿namespace DbManager.Domain.Diagnostics.Logging
 {
     public interface ILog
     {
