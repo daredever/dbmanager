@@ -42,11 +42,11 @@ namespace DbManager.Infra.WebApi.Controllers
                 _logger.Info?.Log($"Starts processing.");
 
                 _logger.Trace?.Log($"Get catalogs from db instance.");
-                var catalogs = await _dbSchemaService.GetCatalogsAsync();
+                var catalogs = await _dbSchemaService.GetCatalogsAsync().ConfigureAwait(false);
 
                 _logger.Trace?.Log($"Mapping from model to dto.");
                 var result = catalogs.Select(catalog => catalog.Map()).ToList();
-                
+
                 _logger.Debug?.Log($"Result count: '{result.Count}'.");
                 return Ok(result);
             }
@@ -84,13 +84,13 @@ namespace DbManager.Infra.WebApi.Controllers
 
                 _logger.Trace?.Log($"Mapping from dto to model.");
                 var catalog = catalogDto.Map();
-                
+
                 _logger.Trace?.Log($"Get tables from db instance.");
-                var tables = await _dbSchemaService.GetTablesAsync(catalog);
+                var tables = await _dbSchemaService.GetTablesAsync(catalog).ConfigureAwait(false);
 
                 _logger.Trace?.Log($"Mapping from model to dto.");
                 var result = tables.Select(table => table.Map()).ToList();
-                
+
                 _logger.Debug?.Log($"Result count: '{result.Count}'.");
                 return Ok(result);
             }
@@ -128,13 +128,13 @@ namespace DbManager.Infra.WebApi.Controllers
 
                 _logger.Trace?.Log($"Mapping from dto to model.");
                 var table = tableDto.Map();
-                
+
                 _logger.Trace?.Log($"Get columns from db instance.");
-                var columns = await _dbSchemaService.GetColumnsAsync(table);
+                var columns = await _dbSchemaService.GetColumnsAsync(table).ConfigureAwait(false);
 
                 _logger.Trace?.Log($"Mapping from model to dto.");
                 var result = columns.Select(column => column.Map()).ToList();
-                
+
                 _logger.Debug?.Log($"Result count: '{result.Count}'.");
                 return Ok(result);
             }

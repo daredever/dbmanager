@@ -19,7 +19,7 @@ namespace DbManager.App.Services
 
         public async Task<string> GenerateCreateTableScriptAsync(ITable table)
         {
-            var columns = await _schemaRepository.GetColumnsAsync(table);
+            var columns = await _schemaRepository.GetColumnsAsync(table).ConfigureAwait(false);
             return $"CREATE TABLE {table.Schema}.{table.Name} (" +
                    $"\r\n{GenerateColumnsScriptPart(columns)}\r\n" +
                    ");";

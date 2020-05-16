@@ -53,7 +53,7 @@ namespace DbManager.Infra.WebApi.Controllers
 
                 _logger.Trace?.Log($"Starts generating create table script " +
                                    $"for table '{table.Catalog}.{table.Schema}.{table.Name}'.");
-                var script = await _dbScriptsService.GenerateCreateTableScriptAsync(table);
+                var script = await _dbScriptsService.GenerateCreateTableScriptAsync(table).ConfigureAwait(false);
 
                 _logger.Debug?.Log($"Result '{script}'.");
 
