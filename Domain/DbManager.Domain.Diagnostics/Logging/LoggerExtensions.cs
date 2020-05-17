@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using System;
+using Microsoft.Extensions.Logging;
 
 namespace DbManager.Domain.Diagnostics.Logging
 {
@@ -6,6 +7,11 @@ namespace DbManager.Domain.Diagnostics.Logging
     {
         public static INullableLogger Wrap(this ILogger logger)
         {
+            if (logger == null)
+            {
+                return null;
+            }
+
             return new NullableLogger(logger);
         }
 
