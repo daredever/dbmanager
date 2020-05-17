@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 
 namespace DbManager.Domain.Diagnostics.Logging
 {
@@ -7,12 +6,7 @@ namespace DbManager.Domain.Diagnostics.Logging
     {
         public static INullableLogger Wrap(this ILogger logger)
         {
-            if (logger == null)
-            {
-                return null;
-            }
-
-            return new NullableLogger(logger);
+            return logger is null ? null : new NullableLogger(logger);
         }
 
         public static LogWithLevel? Trace(this ILogger logger) =>
