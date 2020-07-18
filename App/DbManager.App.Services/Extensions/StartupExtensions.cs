@@ -1,8 +1,6 @@
 ﻿using DbManager.Domain.Services;
 using Microsoft.Extensions.DependencyInjection;
 
-[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("DbManager.App.Services.Tests")]
-
 namespace DbManager.App.Services.Extensions
 {
     public static class StartupExtensions
